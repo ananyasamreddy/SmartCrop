@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prediction Result</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body class="result-page-body">
+
+  <header class="main-header">
+    <div class="logo">
+      <img src="logo2.png" class="nav-logo" alt="Logo">
+      <h2 id="logoText">SmartCrop</h2>
+    </div>
+
+    <nav>
+      <a href="index.html" id="homeText">Home</a>
+      <a href="predict.html" id="predictNavText">Prediction</a>
+
+      <select id="languageSelect">
+        <option value="en">English</option>
+        <option value="hi">हिंदी</option>
+        <option value="te">తెలుగు</option>
+        <option value="ta">தமிழ்</option>
+        <option value="kn">ಕನ್ನಡ</option>
+        <option value="ml">മലയാളം</option>
+        <option value="mr">मराठी</option>
+        <option value="gu">ગુજરાતી</option>
+        <option value="bn">বাংলা</option>
+        <option value="pa">ਪੰਜਾਬੀ</option>
+        <option value="or">ଓଡ଼ିଆ</option>
+        <option value="ur">اردو</option>
+      </select>
+    </nav>
+  </header>
+
+  <section class="result-page-section">
+    <div class="result-page-overlay"></div>
+
+    <div class="result-page-wrapper">
+      <div class="premium-result-card better-result-card">
+
+        <div class="premium-top">
+          <span class="hero-badge" id="resultBadge">Recommendation Result</span>
+          <h2 id="resultTitle">Choose One Crop Recommendation</h2>
+          <p id="resultDesc">Select one of the top 3 suggested crops to view full details.</p>
+          <p class="select-hint" id="clickHint">Click any one crop card to view full details.</p>
+        </div>
+
+        <div class="extension-section">
+          <h3 id="top3Title">Top 3 Crop Recommendations</h3>
+          <div id="top3Container" class="top3-grid"></div>
+        </div>
+
+        <div id="selectedCropDetails" class="details-hidden">
+          <div class="premium-result-layout">
+            <div class="premium-left">
+              <div class="crop-image-card better-image-card">
+                <img id="cropImage" src="crop-images/default.jpg" alt="Crop Image">
+              </div>
+            </div>
+
+            <div class="premium-right">
+              <div class="result-main-box better-main-box">
+                <p class="result-mini-label" id="recommendedCropLabel">Selected Crop</p>
+                <h1 class="premium-crop-name" id="cropName">-</h1>
+              </div>
+
+              <div class="market-badge-card">
+                <div class="market-icon">₹</div>
+                <div>
+                  <p class="result-mini-label" id="marketValueLabel">Market Value</p>
+                  <h3 class="premium-price" id="marketPrice">-</h3>
+                </div>
+              </div>
+
+              <div class="premium-result-details">
+                <div class="premium-detail-item">
+                  <span id="tempText">Temperature</span>
+                  <strong id="tempValue">-</strong>
+                </div>
+                <div class="premium-detail-item">
+                  <span id="humText">Humidity</span>
+                  <strong id="humValue">-</strong>
+                </div>
+                <div class="premium-detail-item">
+                  <span id="rainText">Rainfall</span>
+                  <strong id="rainValue">-</strong>
+                </div>
+                <div class="premium-detail-item">
+                  <span id="soilText">Soil Type</span>
+                  <strong id="soilValue">-</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="extension-grid">
+            <div class="extension-card">
+              <h3 id="soilSuitabilityTitle">Soil Suitability</h3>
+              <p id="soilMessage">-</p>
+            </div>
+
+            <div class="extension-card">
+              <h3 id="weatherTipsTitle">Weather-based Farming Tips</h3>
+              <p id="weatherTip">-</p>
+            </div>
+          </div>
+
+          <div class="extension-grid">
+            <div class="extension-card">
+              <h3 id="fertilizerTitle">Fertilizer Recommendation</h3>
+              <div id="fertilizerTags" class="tag-list"></div>
+            </div>
+
+            <div class="extension-card">
+              <h3 id="cropDetailsTitle">Crop Details</h3>
+              <div class="details-list">
+                <div><strong id="seasonText">Season:</strong> <span id="seasonValue">-</span></div>
+                <div><strong id="durationText">Duration:</strong> <span id="durationValue">-</span></div>
+                <div><strong id="waterReqText">Water Requirement:</strong> <span id="waterReqValue">-</span></div>
+                <div><strong id="idealSoilText">Ideal Soil:</strong> <span id="idealSoilValue">-</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="voice-box">
+            <button id="voiceBtn" class="voice-btn">🔊 Read Result</button>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <a href="predict.html" class="btn primary-btn" id="tryAgainText">Try Again</a>
+          <a href="index.html" class="btn primary-btn" id="goHomeText">Go Home</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p id="footerText">© 2026 Smart Crop Recommendation System. All Rights Reserved.</p>
+  </footer>
+
+  <div class="assistant-toggle" id="assistantToggle">🌾</div>
+
+  <div class="assistant-box" id="assistantBox">
+    <div class="assistant-header">
+      <h3 id="assistantTitle">Farmer Assistant</h3>
+      <button class="assistant-close" id="assistantClose">×</button>
+    </div>
+
+    <div class="assistant-body">
+      <p id="assistantMessage">Hello Farmer, how can I help you today?</p>
+
+      <div class="assistant-actions">
+        <button class="assistant-btn" data-help="how" id="assistantHowBtn">How to use?</button>
+        <button class="assistant-btn" data-help="top3" id="assistantTop3Btn">Top 3 help</button>
+        <button class="assistant-btn" data-help="details" id="assistantDetailsBtn">Details help</button>
+        <button class="assistant-btn" data-help="voice" id="assistantVoiceBtn">Voice help</button>
+        <button class="assistant-btn" data-help="speak" id="assistantSpeakBtn">🔊 Read Help</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const savedResult = JSON.parse(localStorage.getItem("predictionResult"));
+    const languageSelect = document.getElementById("languageSelect");
+    let currentSelectedCrop = null;
+
+    const translations = {
+      en: {
+        logo: "SmartCrop",
+        home: "Home",
+        predictNav: "Prediction",
+        badge: "Recommendation Result",
+        title: "Choose One Crop Recommendation",
+        desc: "Select one of the top 3 suggested crops to view full details.",
+        clickHint: "Click any one crop card to view full details.",
+        selectedCrop: "Selected Crop",
+        marketValue: "Market Value",
+        temperature: "Temperature",
+        humidity: "Humidity",
+        rainfall: "Rainfall",
+        soilType: "Soil Type",
+        top3Title: "Top 3 Crop Recommendations",
+        soilSuitabilityTitle: "Soil Suitability",
+        weatherTipsTitle: "Weather-based Farming Tips",
+        fertilizerTitle: "Fertilizer Recommendation",
+        cropDetailsTitle: "Crop Details",
+        season: "Season:",
+        duration: "Duration:",
+        waterReq: "Water Requirement:",
+        idealSoil: "Ideal Soil:",
+        tryAgain: "Try Again",
+        goHome: "Go Home",
+        voice: "🔊 Read Result",
+        match: "match",
+        footer: "© 2026 Smart Crop Recommendation System. All Rights Reserved."
+      },
+      hi: {
+        logo: "स्मार्टक्रॉप",
+        home: "होम",
+        predictNav: "पूर्वानुमान",
+        badge: "अनुशंसा परिणाम",
+        title: "एक फसल अनुशंसा चुनें",
+        desc: "पूरा विवरण देखने के लिए शीर्ष 3 सुझाई गई फसलों में से एक चुनें।",
+        clickHint: "पूरा विवरण देखने के लिए किसी एक फसल कार्ड पर क्लिक करें।",
+        selectedCrop: "चुनी गई फसल",
+        marketValue: "बाजार मूल्य",
+        temperature: "तापमान",
+        humidity: "आर्द्रता",
+        rainfall: "वर्षा",
+        soilType: "मिट्टी का प्रकार",
+        top3Title: "शीर्ष 3 फसल अनुशंसाएँ",
+        soilSuitabilityTitle: "मिट्टी उपयुक्तता",
+        weatherTipsTitle: "मौसम आधारित कृषि सुझाव",
+        fertilizerTitle: "उर्वरक अनुशंसा",
+        cropDetailsTitle: "फसल विवरण",
+        season: "मौसम:",
+        duration: "अवधि:",
+        waterReq: "पानी की आवश्यकता:",
+        idealSoil: "उपयुक्त मिट्टी:",
+        tryAgain: "फिर से प्रयास करें",
+        goHome: "होम जाएँ",
+        voice: "🔊 परिणाम पढ़ें",
+        match: "मिलान",
+        footer: "© 2026 स्मार्ट फसल अनुशंसा प्रणाली। सर्वाधिकार सुरक्षित।"
+      },
+      te: {
+        logo: "స్మార్ట్‌క్రాప్",
+        home: "హోమ్",
+        predictNav: "అంచనా",
+        badge: "సిఫార్సు ఫలితం",
+        title: "ఒక పంట సిఫార్సును ఎంచుకోండి",
+        desc: "పూర్తి వివరాలు చూడడానికి టాప్ 3 సూచించిన పంటలలో ఒకదాన్ని ఎంచుకోండి.",
+        clickHint: "పూర్తి వివరాలు చూడడానికి ఏదైనా ఒక పంట కార్డుపై క్లిక్ చేయండి.",
+        selectedCrop: "ఎంచుకున్న పంట",
+        marketValue: "మార్కెట్ విలువ",
+        temperature: "ఉష్ణోగ్రత",
+        humidity: "ఆర్ద్రత",
+        rainfall: "వర్షపాతం",
+        soilType: "మట్టి రకం",
+        top3Title: "టాప్ 3 పంట సిఫార్సులు",
+        soilSuitabilityTitle: "మట్టి అనుకూలత",
+        weatherTipsTitle: "వాతావరణ ఆధారిత వ్యవసాయ సూచనలు",
+        fertilizerTitle: "ఎరువు సిఫార్సు",
+        cropDetailsTitle: "పంట వివరాలు",
+        season: "సీజన్:",
+        duration: "వ్యవధి:",
+        waterReq: "నీటి అవసరం:",
+        idealSoil: "అనుకూల మట్టి:",
+        tryAgain: "మళ్లీ ప్రయత్నించండి",
+        goHome: "హోమ్‌కు వెళ్లండి",
+        voice: "🔊 ఫలితాన్ని చదవండి",
+        match: "సరిపోలిక",
+        footer: "© 2026 స్మార్ట్ పంట సిఫార్సు వ్యవస్థ. అన్ని హక్కులు కలవు."
+      },
+      ta: {
+        logo: "ஸ்மார்ட்கிராப்",
+        home: "முகப்பு",
+        predictNav: "கணிப்பு",
+        badge: "பரிந்துரை முடிவு",
+        title: "ஒரு பயிர் பரிந்துரையைத் தேர்ந்தெடுக்கவும்",
+        desc: "முழு விவரங்களை பார்க்க முதல் 3 பரிந்துரைகளில் ஒன்றைத் தேர்ந்தெடுக்கவும்.",
+        clickHint: "முழு விவரங்களை பார்க்க ஏதேனும் ஒரு கார்டை அழுத்தவும்.",
+        selectedCrop: "தேர்ந்தெடுத்த பயிர்",
+        marketValue: "சந்தை மதிப்பு",
+        temperature: "வெப்பநிலை",
+        humidity: "ஈரப்பதம்",
+        rainfall: "மழைப்பொழிவு",
+        soilType: "மண் வகை",
+        top3Title: "முதல் 3 பயிர் பரிந்துரைகள்",
+        soilSuitabilityTitle: "மண் பொருத்தம்",
+        weatherTipsTitle: "வானிலை அடிப்படையிலான விவசாய குறிப்புகள்",
+        fertilizerTitle: "உரம் பரிந்துரை",
+        cropDetailsTitle: "பயிர் விவரங்கள்",
+        season: "பருவம்:",
+        duration: "காலம்:",
+        waterReq: "நீர் தேவைகள்:",
+        idealSoil: "சிறந்த மண்:",
+        tryAgain: "மீண்டும் முயற்சிக்கவும்",
+        goHome: "முகப்புக்கு செல்லவும்",
+        voice: "🔊 முடிவைப் படிக்கவும்",
+        match: "பொருத்தம்",
+        footer: "© 2026 ஸ்மார்ட் பயிர் பரிந்துரை அமைப்பு. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை."
+      },
+      kn: {
+        logo: "ಸ್ಮಾರ್ಟ್‌ಕ್ರಾಪ್",
+        home: "ಮುಖಪುಟ",
+        predictNav: "ಭವಿಷ್ಯವಾಣಿ",
+        badge: "ಶಿಫಾರಸು ಫಲಿತಾಂಶ",
+        title: "ಒಂದು ಬೆಳೆ ಶಿಫಾರಸನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+        desc: "ಪೂರ್ಣ ವಿವರಗಳನ್ನು ನೋಡಲು ಟಾಪ್ 3 ಶಿಫಾರಸುಗಳಲ್ಲಿ ಒಂದನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
+        clickHint: "ಪೂರ್ಣ ವಿವರಗಳನ್ನು ನೋಡಲು ಯಾವುದಾದರೂ ಒಂದು ಕಾರ್ಡ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
+        selectedCrop: "ಆಯ್ಕೆ ಮಾಡಿದ ಬೆಳೆ",
+        marketValue: "ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯ",
+        temperature: "ತಾಪಮಾನ",
+        humidity: "ಆರ್ದ್ರತೆ",
+        rainfall: "ಮಳೆಯ ಪ್ರಮಾಣ",
+        soilType: "ಮಣ್ಣಿನ ವಿಧ",
+        top3Title: "ಟಾಪ್ 3 ಬೆಳೆ ಶಿಫಾರಸುಗಳು",
+        soilSuitabilityTitle: "ಮಣ್ಣಿನ ಹೊಂದಾಣಿಕೆ",
+        weatherTipsTitle: "ಹವಾಮಾನ ಆಧಾರಿತ ಕೃಷಿ ಸಲಹೆಗಳು",
+        fertilizerTitle: "ರಸಗೊಬ್ಬರ ಶಿಫಾರಸು",
+        cropDetailsTitle: "ಬೆಳೆ ವಿವರಗಳು",
+        season: "ಸೀಸನ್:",
+        duration: "ಅವಧಿ:",
+        waterReq: "ನೀರಿನ ಅವಶ್ಯಕತೆ:",
+        idealSoil: "ಉತ್ತಮ ಮಣ್ಣು:",
+        tryAgain: "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ",
+        goHome: "ಮುಖಪುಟಕ್ಕೆ ಹೋಗಿ",
+        voice: "🔊 ಫಲಿತಾಂಶವನ್ನು ಓದಿ",
+        match: "ಹೊಂದಾಣಿಕೆ",
+        footer: "© 2026 ಸ್ಮಾರ್ಟ್ ಬೆಳೆ ಶಿಫಾರಸು ವ್ಯವಸ್ಥೆ. ಎಲ್ಲಾ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ."
+      },
+      ml: {
+        logo: "സ്മാർട്ട്ക്രോപ്പ്",
+        home: "ഹോം",
+        predictNav: "പ്രവചനം",
+        badge: "ശുപാർശ ഫലം",
+        title: "ഒരു വിള ശുപാർശ തിരഞ്ഞെടുക്കുക",
+        desc: "പൂർണ്ണ വിവരങ്ങൾ കാണാൻ മികച്ച 3 ശുപാർശകളിൽ ഒന്നിനെ തിരഞ്ഞെടുക്കുക.",
+        clickHint: "പൂർണ്ണ വിവരങ്ങൾ കാണാൻ ഏതെങ്കിലും ഒരു കാർഡിൽ ക്ലിക്ക് ചെയ്യുക.",
+        selectedCrop: "തിരഞ്ഞെടുത്ത വിള",
+        marketValue: "വിപണി വില",
+        temperature: "താപനില",
+        humidity: "ആർദ്രത",
+        rainfall: "മഴ",
+        soilType: "മണ്ണിന്റെ തരം",
+        top3Title: "മികച്ച 3 വിള ശുപാർശകൾ",
+        soilSuitabilityTitle: "മണ്ണിന്റെ അനുയോജ്യത",
+        weatherTipsTitle: "കാലാവസ്ഥ അടിസ്ഥാനത്തിലുള്ള കൃഷി നിർദേശങ്ങൾ",
+        fertilizerTitle: "വള നിർദ്ദേശം",
+        cropDetailsTitle: "വിള വിവരങ്ങൾ",
+        season: "സീസൺ:",
+        duration: "കാലാവധി:",
+        waterReq: "ജല ആവശ്യം:",
+        idealSoil: "അനുയോജ്യമായ മണ്ണ്:",
+        tryAgain: "വീണ്ടും ശ്രമിക്കുക",
+        goHome: "ഹോമിലേക്ക് പോകുക",
+        voice: "🔊 ഫലം വായിക്കുക",
+        match: "പൊരുത്തം",
+        footer: "© 2026 സ്മാർട്ട് വിള ശുപാർശ സംവിധാനം. എല്ലാ അവകാശങ്ങളും സംരക്ഷിച്ചിരിക്കുന്നു."
+      },
+      mr: {
+        logo: "स्मार्टक्रॉप",
+        home: "मुख्यपृष्ठ",
+        predictNav: "भविष्यवाणी",
+        badge: "शिफारस निकाल",
+        title: "एक पीक शिफारस निवडा",
+        desc: "पूर्ण तपशील पाहण्यासाठी टॉप 3 शिफारसींपैकी एक निवडा.",
+        clickHint: "पूर्ण तपशील पाहण्यासाठी कोणत्याही एका कार्डवर क्लिक करा.",
+        selectedCrop: "निवडलेले पीक",
+        marketValue: "बाजारमूल्य",
+        temperature: "तापमान",
+        humidity: "आर्द्रता",
+        rainfall: "पाऊस",
+        soilType: "मातीचा प्रकार",
+        top3Title: "टॉप 3 पीक शिफारसी",
+        soilSuitabilityTitle: "मातीची अनुकूलता",
+        weatherTipsTitle: "हवामानावर आधारित शेती सूचना",
+        fertilizerTitle: "खत शिफारस",
+        cropDetailsTitle: "पीक तपशील",
+        season: "हंगाम:",
+        duration: "कालावधी:",
+        waterReq: "पाण्याची गरज:",
+        idealSoil: "योग्य माती:",
+        tryAgain: "पुन्हा प्रयत्न करा",
+        goHome: "मुख्यपृष्ठावर जा",
+        voice: "🔊 निकाल वाचा",
+        match: "जुळणी",
+        footer: "© 2026 स्मार्ट पीक शिफारस प्रणाली. सर्व हक्क राखीव."
+      },
+      gu: {
+        logo: "સ્માર્ટક્રોપ",
+        home: "હોમ",
+        predictNav: "અનુમાન",
+        badge: "ભલામણ પરિણામ",
+        title: "એક પાક ભલામણ પસંદ કરો",
+        desc: "સંપૂર્ણ વિગતો જોવા માટે ટોપ 3 ભલામણોમાંથી એક પસંદ કરો.",
+        clickHint: "સંપૂર્ણ વિગતો જોવા માટે કોઈપણ એક કાર્ડ પર ક્લિક કરો.",
+        selectedCrop: "પસંદ કરાયેલ પાક",
+        marketValue: "બજાર મૂલ્ય",
+        temperature: "તાપમાન",
+        humidity: "આર્દ્રતા",
+        rainfall: "વરસાદ",
+        soilType: "માટીનો પ્રકાર",
+        top3Title: "ટોપ 3 પાક ભલામણો",
+        soilSuitabilityTitle: "માટી યોગ્યતા",
+        weatherTipsTitle: "હવામાન આધારિત ખેતી સૂચનો",
+        fertilizerTitle: "ખાતર ભલામણ",
+        cropDetailsTitle: "પાક વિગતો",
+        season: "મોસમ:",
+        duration: "અવધિ:",
+        waterReq: "પાણીની જરૂરિયાત:",
+        idealSoil: "યોગ્ય માટી:",
+        tryAgain: "ફરી પ્રયાસ કરો",
+        goHome: "હોમ પર જાઓ",
+        voice: "🔊 પરિણામ વાંચો",
+        match: "મેળ",
+        footer: "© 2026 સ્માર્ટ પાક ભલામણ સિસ્ટમ. બધા હક્કો સુરક્ષિત."
+      },
+      bn: {
+        logo: "স্মার্টক্রপ",
+        home: "হোম",
+        predictNav: "পূর্বাভাস",
+        badge: "সুপারিশ ফলাফল",
+        title: "একটি ফসল সুপারিশ নির্বাচন করুন",
+        desc: "সম্পূর্ণ তথ্য দেখতে শীর্ষ ৩ সুপারিশের একটি নির্বাচন করুন।",
+        clickHint: "সম্পূর্ণ তথ্য দেখতে যেকোনো একটি কার্ডে ক্লিক করুন।",
+        selectedCrop: "নির্বাচিত ফসল",
+        marketValue: "বাজার মূল্য",
+        temperature: "তাপমাত্রা",
+        humidity: "আর্দ্রতা",
+        rainfall: "বৃষ্টিপাত",
+        soilType: "মাটির ধরন",
+        top3Title: "শীর্ষ ৩ ফসল সুপারিশ",
+        soilSuitabilityTitle: "মাটির উপযুক্ততা",
+        weatherTipsTitle: "আবহাওয়া ভিত্তিক কৃষি পরামর্শ",
+        fertilizerTitle: "সার সুপারিশ",
+        cropDetailsTitle: "ফসলের বিবরণ",
+        season: "মৌসুম:",
+        duration: "সময়কাল:",
+        waterReq: "জলের প্রয়োজন:",
+        idealSoil: "উপযুক্ত মাটি:",
+        tryAgain: "আবার চেষ্টা করুন",
+        goHome: "হোমে যান",
+        voice: "🔊 ফলাফল পড়ুন",
+        match: "মিল",
+        footer: "© 2026 স্মার্ট ফসল সুপারিশ সিস্টেম। সর্বস্বত্ব সংরক্ষিত।"
+      },
+      pa: {
+        logo: "ਸਮਾਰਟਕ੍ਰਾਪ",
+        home: "ਹੋਮ",
+        predictNav: "ਭਵਿੱਖਬਾਣੀ",
+        badge: "ਸਿਫਾਰਸ਼ ਨਤੀਜਾ",
+        title: "ਇੱਕ ਫਸਲ ਸਿਫਾਰਸ਼ ਚੁਣੋ",
+        desc: "ਪੂਰੇ ਵੇਰਵੇ ਵੇਖਣ ਲਈ ਟਾਪ 3 ਸਿਫਾਰਸ਼ਾਂ ਵਿੱਚੋਂ ਇੱਕ ਚੁਣੋ।",
+        clickHint: "ਪੂਰੇ ਵੇਰਵੇ ਵੇਖਣ ਲਈ ਕਿਸੇ ਇੱਕ ਕਾਰਡ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
+        selectedCrop: "ਚੁਣੀ ਗਈ ਫਸਲ",
+        marketValue: "ਮਾਰਕੀਟ ਕੀਮਤ",
+        temperature: "ਤਾਪਮਾਨ",
+        humidity: "ਨਮੀ",
+        rainfall: "ਮੀਂਹ",
+        soilType: "ਮਿੱਟੀ ਦੀ ਕਿਸਮ",
+        top3Title: "ਸਿਖਰ ਦੀਆਂ 3 ਫਸਲ ਸਿਫਾਰਸ਼ਾਂ",
+        soilSuitabilityTitle: "ਮਿੱਟੀ ਦੀ ਉਚਿਤਤਾ",
+        weatherTipsTitle: "ਮੌਸਮ ਆਧਾਰਿਤ ਖੇਤੀ ਸੁਝਾਅ",
+        fertilizerTitle: "ਖਾਦ ਸਿਫਾਰਸ਼",
+        cropDetailsTitle: "ਫਸਲ ਵੇਰਵੇ",
+        season: "ਮੌਸਮ:",
+        duration: "ਅਵਧੀ:",
+        waterReq: "ਪਾਣੀ ਦੀ ਲੋੜ:",
+        idealSoil: "ਉਚਿਤ ਮਿੱਟੀ:",
+        tryAgain: "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+        goHome: "ਹੋਮ 'ਤੇ ਜਾਓ",
+        voice: "🔊 ਨਤੀਜਾ ਪੜ੍ਹੋ",
+        match: "ਮਿਲਾਪ",
+        footer: "© 2026 ਸਮਾਰਟ ਫਸਲ ਸਿਫਾਰਸ਼ ਸਿਸਟਮ। ਸਭ ਹੱਕ ਰਾਖਵੇਂ ਹਨ।"
+      },
+      or: {
+        logo: "ସ୍ମାର୍ଟକ୍ରପ୍",
+        home: "ମୁଖ୍ୟପୃଷ୍ଠା",
+        predictNav: "ପୂର୍ବାନୁମାନ",
+        badge: "ସୁପାରିଶ ଫଳାଫଳ",
+        title: "ଏକ ଫସଲ ସୁପାରିଶ ବାଛନ୍ତୁ",
+        desc: "ପୂର୍ଣ୍ଣ ବିବରଣୀ ଦେଖିବା ପାଇଁ ଶୀର୍ଷ 3 ସୁପାରିଶ ମଧ୍ୟରୁ ଗୋଟିଏ ବାଛନ୍ତୁ।",
+        clickHint: "ପୂର୍ଣ୍ଣ ବିବରଣୀ ଦେଖିବାକୁ କୌଣସି ଗୋଟିଏ କାର୍ଡ ଉପରେ କ୍ଲିକ୍ କରନ୍ତୁ।",
+        selectedCrop: "ବାଛାଯାଇଥିବା ଫସଲ",
+        marketValue: "ବଜାର ମୂଲ୍ୟ",
+        temperature: "ତାପମାତ୍ରା",
+        humidity: "ଆର୍ଦ୍ରତା",
+        rainfall: "ବର୍ଷା",
+        soilType: "ମାଟି ପ୍ରକାର",
+        top3Title: "ଶୀର୍ଷ 3 ଫସଲ ସୁପାରିଶ",
+        soilSuitabilityTitle: "ମାଟିର ଉପଯୁକ୍ତତା",
+        weatherTipsTitle: "ଆବହାଓା ଆଧାରିତ କୃଷି ପରାମର୍ଶ",
+        fertilizerTitle: "ସାର ସୁପାରିଶ",
+        cropDetailsTitle: "ଫସଲ ବିବରଣୀ",
+        season: "ଋତୁ:",
+        duration: "ଅବଧି:",
+        waterReq: "ପାଣିର ଆବଶ୍ୟକତା:",
+        idealSoil: "ଉପଯୁକ୍ତ ମାଟି:",
+        tryAgain: "ପୁନଃ ଚେଷ୍ଟା କରନ୍ତୁ",
+        goHome: "ମୁଖ୍ୟପୃଷ୍ଠାକୁ ଯାଆନ୍ତୁ",
+        voice: "🔊 ଫଳାଫଳ ପଢନ୍ତୁ",
+        match: "ମେଳ",
+        footer: "© 2026 ସ୍ମାର୍ଟ ଫସଲ ସୁପାରିଶ ପ୍ରଣାଳୀ। ସମସ୍ତ ଅଧିକାର ସଂରକ୍ଷିତ।"
+      },
+      ur: {
+        logo: "اسمارٹ کراپ",
+        home: "ہوم",
+        predictNav: "پریڈکشن",
+        badge: "سفارش نتیجہ",
+        title: "ایک فصل کی سفارش منتخب کریں",
+        desc: "مکمل تفصیلات دیکھنے کے لیے ٹاپ 3 سفارشات میں سے ایک منتخب کریں۔",
+        clickHint: "مکمل تفصیلات دیکھنے کے لیے کسی ایک کارڈ پر کلک کریں۔",
+        selectedCrop: "منتخب فصل",
+        marketValue: "مارکیٹ ویلیو",
+        temperature: "درجہ حرارت",
+        humidity: "نمی",
+        rainfall: "بارش",
+        soilType: "مٹی کی قسم",
+        top3Title: "ٹاپ 3 فصل تجاویز",
+        soilSuitabilityTitle: "مٹی کی موزونیت",
+        weatherTipsTitle: "موسم کی بنیاد پر زرعی تجاویز",
+        fertilizerTitle: "کھاد کی تجویز",
+        cropDetailsTitle: "فصل کی تفصیلات",
+        season: "موسم:",
+        duration: "مدت:",
+        waterReq: "پانی کی ضرورت:",
+        idealSoil: "موزوں مٹی:",
+        tryAgain: "دوبارہ کوشش کریں",
+        goHome: "ہوم پر جائیں",
+        voice: "🔊 نتیجہ پڑھیں",
+        match: "مطابقت",
+        footer: "© 2026 اسمارٹ کراپ ریکمینڈیشن سسٹم۔ جملہ حقوق محفوظ ہیں۔"
+      }
+    };
+
+    const cropNameTranslations = {
+      en:{ rice:"Rice", maize:"Maize", chickpea:"Chickpea", kidneybeans:"Kidney Beans", pigeonpeas:"Pigeon Peas", mothbeans:"Moth Beans", mungbean:"Mung Bean", blackgram:"Black Gram", lentil:"Lentil", pomegranate:"Pomegranate", banana:"Banana", mango:"Mango", grapes:"Grapes", watermelon:"Watermelon", muskmelon:"Muskmelon", apple:"Apple", orange:"Orange", papaya:"Papaya", coconut:"Coconut", cotton:"Cotton", jute:"Jute", coffee:"Coffee" },
+      hi:{ rice:"चावल", maize:"मक्का", chickpea:"चना", kidneybeans:"राजमा", pigeonpeas:"अरहर", mothbeans:"मटकी", mungbean:"मूंग", blackgram:"उड़द", lentil:"मसूर", pomegranate:"अनार", banana:"केला", mango:"आम", grapes:"अंगूर", watermelon:"तरबूज", muskmelon:"खरबूजा", apple:"सेब", orange:"संतरा", papaya:"पपीता", coconut:"नारियल", cotton:"कपास", jute:"जूट", coffee:"कॉफी" },
+      te:{ rice:"బియ్యం", maize:"మొక్కజొన్న", chickpea:"సెనగ", kidneybeans:"రాజ్మా", pigeonpeas:"కందులు", mothbeans:"మోత్ బీన్స్", mungbean:"పెసలు", blackgram:"మినుములు", lentil:"మసూర్", pomegranate:"దానిమ్మ", banana:"అరటి", mango:"మామిడి", grapes:"ద్రాక్ష", watermelon:"పుచ్చకాయ", muskmelon:"ఖర్బూజా", apple:"ఆపిల్", orange:"నారింజ", papaya:"బొప్పాయి", coconut:"కొబ్బరి", cotton:"పత్తి", jute:"జూట్", coffee:"కాఫీ" },
+      ta:{ rice:"அரிசி", maize:"மக்காச்சோளம்", chickpea:"கொண்டைக்கடலை", kidneybeans:"ராஜ்மா", pigeonpeas:"துவரம் பருப்பு", mothbeans:"மத் பீன்ஸ்", mungbean:"பாசிப்பயறு", blackgram:"உளுந்து", lentil:"மசூர்", pomegranate:"மாதுளை", banana:"வாழை", mango:"மாம்பழம்", grapes:"திராட்சை", watermelon:"தர்பூசணி", muskmelon:"முலாம் பழம்", apple:"ஆப்பிள்", orange:"ஆரஞ்சு", papaya:"பப்பாளி", coconut:"தேங்காய்", cotton:"பருத்தி", jute:"சணல்", coffee:"காப்பி" },
+      kn:{ rice:"ಅಕ್ಕಿ", maize:"ಮೆಕ್ಕೆಜೋಳ", chickpea:"ಕಡಲೆ", kidneybeans:"ರಾಜ್ಮಾ", pigeonpeas:"ತೊಗರಿ", mothbeans:"ಮೋತ್ ಬೀನ್ಸ್", mungbean:"ಹೆಸರುಕಾಳು", blackgram:"ಉದ್ದಿನಕಾಳು", lentil:"ಮಸೂರ", pomegranate:"ದಾಳಿಂಬೆ", banana:"ಬಾಳೆ", mango:"ಮಾವು", grapes:"ದ್ರಾಕ್ಷಿ", watermelon:"ಕಲ್ಲಂಗಡಿ", muskmelon:"ಖರ್ಬೂಜ", apple:"ಸೇಬು", orange:"ಕಿತ್ತಳೆ", papaya:"ಪಪ್ಪಾಯಿ", coconut:"ತೆಂಗು", cotton:"ಹತ್ತಿ", jute:"ಜೂಟ್", coffee:"ಕಾಫಿ" },
+      ml:{ rice:"അരി", maize:"ചോളം", chickpea:"കടല", kidneybeans:"രാജ്മാ", pigeonpeas:"തുവരപ്പരിപ്പ്", mothbeans:"മോത്ത് ബീൻസ്", mungbean:"പയർ", blackgram:"ഉഴുന്നു", lentil:"മസൂർ", pomegranate:"മാതളനാരങ്ങ", banana:"വാഴപ്പഴം", mango:"മാങ്ങ", grapes:"മുന്തിരി", watermelon:"തണ്ണിമത്തൻ", muskmelon:"മുസ്ക്മെലൺ", apple:"ആപ്പിൾ", orange:"ഓറഞ്ച്", papaya:"പപ്പായ", coconut:"തേങ്ങ", cotton:"പരുത്തി", jute:"ജ്യൂട്ട്", coffee:"കാപ്പി" },
+      mr:{ rice:"तांदूळ", maize:"मका", chickpea:"हरभरा", kidneybeans:"राजमा", pigeonpeas:"तूर", mothbeans:"मॉथ बीन", mungbean:"मूग", blackgram:"उडीद", lentil:"मसूर", pomegranate:"डाळिंब", banana:"केळी", mango:"आंबा", grapes:"द्राक्षे", watermelon:"टरबूज", muskmelon:"खरबूज", apple:"सफरचंद", orange:"संत्रे", papaya:"पपई", coconut:"नारळ", cotton:"कापूस", jute:"जूट", coffee:"कॉफी" },
+      gu:{ rice:"ચોખા", maize:"મકાઈ", chickpea:"ચણા", kidneybeans:"રાજમા", pigeonpeas:"તુવેર", mothbeans:"મોથ બીન્સ", mungbean:"મગ", blackgram:"અડદ", lentil:"મસૂર", pomegranate:"દાડમ", banana:"કેળું", mango:"કેરી", grapes:"દ્રાક્ષ", watermelon:"તરબૂચ", muskmelon:"ખરબૂચ", apple:"સફરજન", orange:"નારંગી", papaya:"પપૈયું", coconut:"નાળિયેર", cotton:"કપાસ", jute:"જૂટ", coffee:"કોફી" },
+      bn:{ rice:"ধান", maize:"ভুট্টা", chickpea:"ছোলা", kidneybeans:"রাজমা", pigeonpeas:"আরহার", mothbeans:"মথবিন", mungbean:"মুগ", blackgram:"উড়দ", lentil:"মসুর", pomegranate:"ডালিম", banana:"কলা", mango:"আম", grapes:"আঙুর", watermelon:"তরমুজ", muskmelon:"খরমুজ", apple:"আপেল", orange:"কমলা", papaya:"পেঁপে", coconut:"নারকেল", cotton:"কাপাস", jute:"পাট", coffee:"কফি" },
+      pa:{ rice:"ਚਾਵਲ", maize:"ਮੱਕੀ", chickpea:"ਚਣਾ", kidneybeans:"ਰਾਜਮਾ", pigeonpeas:"ਅੜਹਰ", mothbeans:"ਮੌਥ ਬੀਨ", mungbean:"ਮੂੰਗ", blackgram:"ਉੜਦ", lentil:"ਮਸੂਰ", pomegranate:"ਅਨਾਰ", banana:"ਕੇਲਾ", mango:"ਅੰਬ", grapes:"ਅੰਗੂਰ", watermelon:"ਤਰਬੂਜ਼", muskmelon:"ਖਰਬੂਜਾ", apple:"ਸੇਬ", orange:"ਸੰਤਰਾ", papaya:"ਪਪੀਤਾ", coconut:"ਨਾਰੀਅਲ", cotton:"ਕਪਾਹ", jute:"ਜੂਟ", coffee:"ਕੌਫੀ" },
+      or:{ rice:"ଚାଉଳ", maize:"ମକା", chickpea:"ଚଣା", kidneybeans:"ରାଜମା", pigeonpeas:"ଆରହର", mothbeans:"ମଥ ବିନ୍ସ", mungbean:"ମୁଗ", blackgram:"ଉଡଦ", lentil:"ମସୁର", pomegranate:"ଦାଳିମ୍ବ", banana:"କଦଳୀ", mango:"ଆମ୍ବ", grapes:"ଦ୍ରାକ୍ଷା", watermelon:"ତରଭୁଜ", muskmelon:"ଖରବୁଜ", apple:"ସେବ", orange:"କମଳା", papaya:"ପପିତା", coconut:"ନଡ଼ିଆ", cotton:"କପାସ", jute:"ଜୁଟ୍", coffee:"କଫି" },
+      ur:{ rice:"چاول", maize:"مکئی", chickpea:"چنا", kidneybeans:"راجما", pigeonpeas:"ارہر", mothbeans:"موتھ بینز", mungbean:"مونگ", blackgram:"اڑد", lentil:"مسور", pomegranate:"انار", banana:"کیلا", mango:"آم", grapes:"انگور", watermelon:"تربوز", muskmelon:"خربوزہ", apple:"سیب", orange:"مالٹا", papaya:"پپیتا", coconut:"ناریل", cotton:"کپاس", jute:"جوٹ", coffee:"کافی" }
+    };
+
+    const soilTranslations = {
+      en:{ "Alluvial Soil":"Alluvial Soil","Black Soil":"Black Soil","Red Soil":"Red Soil","Laterite Soil":"Laterite Soil","Sandy Soil":"Sandy Soil","Clayey Soil":"Clayey Soil","Loamy Soil":"Loamy Soil" },
+      hi:{ "Alluvial Soil":"जलोढ़ मिट्टी","Black Soil":"काली मिट्टी","Red Soil":"लाल मिट्टी","Laterite Soil":"लेटेराइट मिट्टी","Sandy Soil":"रेतीली मिट्टी","Clayey Soil":"चिकनी मिट्टी","Loamy Soil":"दोमट मिट्टी" },
+      te:{ "Alluvial Soil":"అల్లువియల్ మట్టి","Black Soil":"నల్ల మట్టి","Red Soil":"ఎర్ర మట్టి","Laterite Soil":"లేటరైట్ మట్టి","Sandy Soil":"ఇసుక మట్టి","Clayey Soil":"చిక్కటి మట్టి","Loamy Soil":"లోమీ మట్టి" },
+      ta:{ "Alluvial Soil":"அல்லுவியல் மண்","Black Soil":"கருப்பு மண்","Red Soil":"சிவப்பு மண்","Laterite Soil":"லேட்டரைட் மண்","Sandy Soil":"மணல் மண்","Clayey Soil":"களிமண்","Loamy Soil":"லோமி மண்" },
+      kn:{ "Alluvial Soil":"ಅಲ್ಲುವಿಯಲ್ ಮಣ್ಣು","Black Soil":"ಕಪ್ಪು ಮಣ್ಣು","Red Soil":"ಕೆಂಪು ಮಣ್ಣು","Laterite Soil":"ಲೆಟರೈಟ್ ಮಣ್ಣು","Sandy Soil":"ಮರಳು ಮಣ್ಣು","Clayey Soil":"ಚಿಕ್ಕಮಣ್ಣು","Loamy Soil":"ಲೋಮಿ ಮಣ್ಣು" },
+      ml:{ "Alluvial Soil":"അല്ലുവിയൽ മണ്ണ്","Black Soil":"കറുത്ത മണ്ണ്","Red Soil":"ചുവന്ന മണ്ണ്","Laterite Soil":"ലെറ്ററൈറ്റ് മണ്ണ്","Sandy Soil":"മണൽ മണ്ണ്","Clayey Soil":"കട്ട മണ്ണ്","Loamy Soil":"ലോമി മണ്ണ്" },
+      mr:{ "Alluvial Soil":"अल्लुवियल माती","Black Soil":"काळी माती","Red Soil":"लाल माती","Laterite Soil":"लेटेराइट माती","Sandy Soil":"वाळू माती","Clayey Soil":"चिकण माती","Loamy Soil":"लोमी माती" },
+      gu:{ "Alluvial Soil":"અલ્લુવિયલ માટી","Black Soil":"કાળી માટી","Red Soil":"લાલ માટી","Laterite Soil":"લેટરાઈટ માટી","Sandy Soil":"રેતીલી માટી","Clayey Soil":"ચીકણી માટી","Loamy Soil":"લોમી માટી" },
+      bn:{ "Alluvial Soil":"অ্যালুভিয়াল মাটি","Black Soil":"কালো মাটি","Red Soil":"লাল মাটি","Laterite Soil":"লেটেরাইট মাটি","Sandy Soil":"বালুকাময় মাটি","Clayey Soil":"কাদামাটি","Loamy Soil":"দোআঁশ মাটি" },
+      pa:{ "Alluvial Soil":"ਅਲੂਵਿਅਲ ਮਿੱਟੀ","Black Soil":"ਕਾਲੀ ਮਿੱਟੀ","Red Soil":"ਲਾਲ ਮਿੱਟੀ","Laterite Soil":"ਲੇਟੇਰਾਈਟ ਮਿੱਟੀ","Sandy Soil":"ਰੇਤਲੀ ਮਿੱਟੀ","Clayey Soil":"ਚਿਕਣੀ ਮਿੱਟੀ","Loamy Soil":"ਦੋਮਟ ਮਿੱਟੀ" },
+      or:{ "Alluvial Soil":"ଅଲୁଭିଆଲ୍ ମାଟି","Black Soil":"କଳା ମାଟି","Red Soil":"ଲାଲ୍ ମାଟି","Laterite Soil":"ଲେଟରାଇଟ୍ ମାଟି","Sandy Soil":"ବାଲୁକା ମାଟି","Clayey Soil":"ଚିକ୍କଣ ମାଟି","Loamy Soil":"ଲୋମି ମାଟି" },
+      ur:{ "Alluvial Soil":"آلویئل مٹی","Black Soil":"کالی مٹی","Red Soil":"سرخ مٹی","Laterite Soil":"لیٹرائٹ مٹی","Sandy Soil":"ریتلی مٹی","Clayey Soil":"چکنی مٹی","Loamy Soil":"لومی مٹی" }
+    };
+
+    const fertilizerTranslations = {
+      en:{ "Urea":"Urea","DAP":"DAP","Potash":"Potash","NPK":"NPK","Compost":"Compost","Organic Compost":"Organic Compost","Super Phosphate":"Super Phosphate","Farmyard Manure":"Farmyard Manure","Organic Manure":"Organic Manure","Biofertilizer":"Biofertilizer","FYM":"FYM","Micronutrients":"Micronutrients","Calcium":"Calcium","Magnesium":"Magnesium","Lime":"Lime" },
+      hi:{ "Urea":"यूरिया","DAP":"डीएपी","Potash":"पोटाश","NPK":"एनपीके","Compost":"कम्पोस्ट","Organic Compost":"जैविक कम्पोस्ट","Super Phosphate":"सुपर फॉस्फेट","Farmyard Manure":"गोबर खाद","Organic Manure":"जैविक खाद","Biofertilizer":"जैव उर्वरक","FYM":"गोबर खाद","Micronutrients":"सूक्ष्म पोषक तत्व","Calcium":"कैल्शियम","Magnesium":"मैग्नीशियम","Lime":"चूना" },
+      te:{ "Urea":"యూరియా","DAP":"డీఏపీ","Potash":"పొటాష్","NPK":"ఎన్‌పీకే","Compost":"కంపోస్ట్","Organic Compost":"సేంద్రియ కంపోస్ట్","Super Phosphate":"సూపర్ ఫాస్ఫేట్","Farmyard Manure":"పశువుల ఎరువు","Organic Manure":"సేంద్రియ ఎరువు","Biofertilizer":"జీవ ఎరువు","FYM":"పశువుల ఎరువు","Micronutrients":"సూక్ష్మ పోషకాలు","Calcium":"కాల్షియం","Magnesium":"మ్యాగ్నీషియం","Lime":"చున్నం" },
+      ta:{ "Urea":"யூரியா","DAP":"டிஏபி","Potash":"பொட்டாஷ்","NPK":"என்பிகே","Compost":"கம்போஸ்ட்","Organic Compost":"இயற்கை கம்போஸ்ட்","Super Phosphate":"சூப்பர் பாஸ்பேட்","Farmyard Manure":"மாட்டு சாண உரம்","Organic Manure":"இயற்கை உரம்","Biofertilizer":"உயிர் உரம்","FYM":"மாட்டு சாண உரம்","Micronutrients":"சிறு ஊட்டச்சத்துக்கள்","Calcium":"கால்சியம்","Magnesium":"மக்னீசியம்","Lime":"சுண்ணாம்பு" },
+      kn:{ "Urea":"ಯೂರಿಯಾ","DAP":"ಡಿಎಪಿ","Potash":"ಪೊಟಾಶ್","NPK":"ಎನ್‌ಪಿಕೆ","Compost":"ಕಂಪೋಸ್ಟ್","Organic Compost":"ಸಾವಯವ ಕಂಪೋಸ್ಟ್","Super Phosphate":"ಸೂಪರ್ ಫಾಸ್ಫೇಟ್","Farmyard Manure":"ಕೊಟ್ಟಿಗೆಯ ಗೊಬ್ಬರ","Organic Manure":"ಸಾವಯವ ಗೊಬ್ಬರ","Biofertilizer":"ಜೈವಿಕ ಗೊಬ್ಬರ","FYM":"ಕೊಟ್ಟಿಗೆಯ ಗೊಬ್ಬರ","Micronutrients":"ಸೂಕ್ಷ್ಮ ಪೋಷಕಾಂಶಗಳು","Calcium":"ಕ್ಯಾಲ್ಸಿಯಂ","Magnesium":"ಮ್ಯಾಗ್ನೀಶಿಯಂ","Lime":"ಸುಣ್ಣ" },
+      ml:{ "Urea":"യൂരിയ","DAP":"ഡി.എ.പി","Potash":"പൊട്ടാഷ്","NPK":"എൻ.പി.കെ","Compost":"കമ്പോസ്റ്റ്","Organic Compost":"ജൈവ കമ്പോസ്റ്റ്","Super Phosphate":"സൂപ്പർ ഫോസ്ഫേറ്റ്","Farmyard Manure":"ചാണകവളം","Organic Manure":"ജൈവവളം","Biofertilizer":"ജൈവ വളം","FYM":"ചാണകവളം","Micronutrients":"സൂക്ഷ്മപോഷകങ്ങൾ","Calcium":"കാല്സ്യം","Magnesium":"മഗ്‌നീഷ്യം","Lime":"ചുണ്ണാമ്പ്" },
+      mr:{ "Urea":"युरिया","DAP":"डीएपी","Potash":"पोटॅश","NPK":"एनपीके","Compost":"कंपोस्ट","Organic Compost":"सेंद्रिय कंपोस्ट","Super Phosphate":"सुपर फॉस्फेट","Farmyard Manure":"शेणखत","Organic Manure":"सेंद्रिय खत","Biofertilizer":"जैवखत","FYM":"शेणखत","Micronutrients":"सूक्ष्म पोषकद्रव्ये","Calcium":"कॅल्शियम","Magnesium":"मॅग्नेशियम","Lime":"चुना" },
+      gu:{ "Urea":"યુરિયા","DAP":"ડીએપી","Potash":"પોટાશ","NPK":"એનપીકે","Compost":"કમ્પોસ્ટ","Organic Compost":"સેન્દ્રિય કમ્પોસ્ટ","Super Phosphate":"સુપર ફોસ્ફેટ","Farmyard Manure":"છાણ ખાતર","Organic Manure":"સેન્દ્રિય ખાતર","Biofertilizer":"જીવ ખાતર","FYM":"છાણ ખાતર","Micronutrients":"સૂક્ષ્મ પોષકતત્વો","Calcium":"કેલ્શિયમ","Magnesium":"મેગ્નેશિયમ","Lime":"ચુનો" },
+      bn:{ "Urea":"ইউরিয়া","DAP":"ডিএপি","Potash":"পটাশ","NPK":"এনপিকে","Compost":"কম্পোস্ট","Organic Compost":"জৈব কম্পোস্ট","Super Phosphate":"সুপার ফসফেট","Farmyard Manure":"গোবর সার","Organic Manure":"জৈব সার","Biofertilizer":"জৈব সার","FYM":"গোবর সার","Micronutrients":"ক্ষুদ্র পুষ্টি উপাদান","Calcium":"ক্যালসিয়াম","Magnesium":"ম্যাগনেশিয়াম","Lime":"চুন" },
+      pa:{ "Urea":"ਯੂਰੀਆ","DAP":"ਡੀਏਪੀ","Potash":"ਪੋਟਾਸ਼","NPK":"ਐਨਪੀਕੇ","Compost":"ਕੰਪੋਸਟ","Organic Compost":"ਜੈਵਿਕ ਕੰਪੋਸਟ","Super Phosphate":"ਸੁਪਰ ਫਾਸਫੇਟ","Farmyard Manure":"ਗੋਬਰ ਖਾਦ","Organic Manure":"ਜੈਵਿਕ ਖਾਦ","Biofertilizer":"ਜੈਵ ਖਾਦ","FYM":"ਗੋਬਰ ਖਾਦ","Micronutrients":"ਸੂਖਮ ਪੋਸ਼ਕ ਤੱਤ","Calcium":"ਕੈਲਸ਼ੀਅਮ","Magnesium":"ਮੈਗਨੀਸ਼ੀਅਮ","Lime":"ਚੂਨਾ" },
+      or:{ "Urea":"ଯୁରିଆ","DAP":"ଡିଏପି","Potash":"ପୋଟାଶ୍","NPK":"ଏନ୍‌ପିକେ","Compost":"କମ୍ପୋଷ୍ଟ","Organic Compost":"ଜୈବ କମ୍ପୋଷ୍ଟ","Super Phosphate":"ସୁପର ଫସ୍ଫେଟ୍","Farmyard Manure":"ଗୋବର ଖାଦ୍ୟ","Organic Manure":"ଜୈବ ଖାଦ୍ୟ","Biofertilizer":"ଜୈବ ସାର","FYM":"ଗୋବର ଖାଦ୍ୟ","Micronutrients":"ସୂକ୍ଷ୍ମ ପୋଷକତତ୍ତ୍ୱ","Calcium":"କ୍ୟାଲସିୟମ୍","Magnesium":"ମ୍ୟାଗ୍ନେସିୟମ୍","Lime":"ଚୁନ" },
+      ur:{ "Urea":"یوریا","DAP":"ڈی اے پی","Potash":"پوٹاش","NPK":"این پی کے","Compost":"کمپوسٹ","Organic Compost":"نامیاتی کمپوسٹ","Super Phosphate":"سپر فاسفیٹ","Farmyard Manure":"گوبر کھاد","Organic Manure":"نامیاتی کھاد","Biofertilizer":"حیاتیاتی کھاد","FYM":"گوبر کھاد","Micronutrients":"خرد غذائی اجزاء","Calcium":"کیلشیم","Magnesium":"میگنیشیم","Lime":"چونا" }
+    };
+
+    const phraseTranslations = {
+      en: {
+        "Kharif":"Kharif","Rabi":"Rabi","Zaid":"Zaid","Kharif/Rabi":"Kharif/Rabi","Kharif/Zaid":"Kharif/Zaid",
+        "Annual":"Annual","Temperate":"Temperate","Perennial":"Perennial",
+        "High":"High","Moderate":"Moderate","Low":"Low","Low to Moderate":"Low to Moderate",
+        "Not Available":"Not Available",
+        "110-130 days":"110-130 days","90-110 days":"90-110 days","100-120 days":"100-120 days",
+        "90-100 days":"90-100 days","120-180 days":"120-180 days","75-90 days":"75-90 days",
+        "60-75 days":"60-75 days","70-90 days":"70-90 days","100-110 days":"100-110 days",
+        "150-180 days":"150-180 days","11-12 months":"11-12 months",
+        "4-5 months fruiting cycle":"4-5 months fruiting cycle","120-140 days":"120-140 days",
+        "80-100 days":"80-100 days","6-8 months fruiting cycle":"6-8 months fruiting cycle",
+        "8-10 months":"8-10 months","Year-round":"Year-round","120-150 days":"120-150 days",
+        "3-4 years to mature":"3-4 years to mature"
+      },
+      hi: {
+        "Kharif":"खरीफ","Rabi":"रबी","Zaid":"ज़ायद","Kharif/Rabi":"खरीफ/रबी","Kharif/Zaid":"खरीफ/ज़ायद",
+        "Annual":"वार्षिक","Temperate":"समशीतोष्ण","Perennial":"बहुवर्षीय",
+        "High":"अधिक","Moderate":"मध्यम","Low":"कम","Low to Moderate":"कम से मध्यम",
+        "Not Available":"उपलब्ध नहीं",
+        "110-130 days":"110-130 दिन","90-110 days":"90-110 दिन","100-120 days":"100-120 दिन",
+        "90-100 days":"90-100 दिन","120-180 days":"120-180 दिन","75-90 days":"75-90 दिन",
+        "60-75 days":"60-75 दिन","70-90 days":"70-90 दिन","100-110 days":"100-110 दिन",
+        "150-180 days":"150-180 दिन","11-12 months":"11-12 महीने",
+        "4-5 months fruiting cycle":"4-5 महीने फलन चक्र","120-140 days":"120-140 दिन",
+        "80-100 days":"80-100 दिन","6-8 months fruiting cycle":"6-8 महीने फलन चक्र",
+        "8-10 months":"8-10 महीने","Year-round":"साल भर","120-150 days":"120-150 दिन",
+        "3-4 years to mature":"परिपक्व होने में 3-4 वर्ष"
+      },
+      te: {
+        "Kharif":"ఖరీఫ్","Rabi":"రబీ","Zaid":"జైద్","Kharif/Rabi":"ఖరీఫ్/రబీ","Kharif/Zaid":"ఖరీఫ్/జైద్",
+        "Annual":"వార్షిక","Temperate":"శీతల వాతావరణం","Perennial":"బహువార్షిక",
+        "High":"అధికం","Moderate":"మోస్తరు","Low":"తక్కువ","Low to Moderate":"తక్కువ నుండి మోస్తరు",
+        "Not Available":"లభ్యం లేదు",
+        "110-130 days":"110-130 రోజులు","90-110 days":"90-110 రోజులు","100-120 days":"100-120 రోజులు",
+        "90-100 days":"90-100 రోజులు","120-180 days":"120-180 రోజులు","75-90 days":"75-90 రోజులు",
+        "60-75 days":"60-75 రోజులు","70-90 days":"70-90 రోజులు","100-110 days":"100-110 రోజులు",
+        "150-180 days":"150-180 రోజులు","11-12 months":"11-12 నెలలు",
+        "4-5 months fruiting cycle":"4-5 నెలల ఫలధారణ చక్రం","120-140 days":"120-140 రోజులు",
+        "80-100 days":"80-100 రోజులు","6-8 months fruiting cycle":"6-8 నెలల ఫలధారణ చక్రం",
+        "8-10 months":"8-10 నెలలు","Year-round":"ఏడాది పొడవునా","120-150 days":"120-150 రోజులు",
+        "3-4 years to mature":"పూర్తిగా పెరగడానికి 3-4 సంవత్సరాలు"
+      },
+      ta: {
+        "Kharif":"கரீப்","Rabi":"ரபி","Zaid":"சைத்","Kharif/Rabi":"கரீப்/ரபி","Kharif/Zaid":"கரீப்/சைத்",
+        "Annual":"வருடாந்திர","Temperate":"சமசீதோஷ்ண","Perennial":"பலவருட",
+        "High":"அதிகம்","Moderate":"மிதமான","Low":"குறைவு","Low to Moderate":"குறைவு முதல் மிதமான",
+        "Not Available":"கிடைக்கவில்லை",
+        "110-130 days":"110-130 நாட்கள்","90-110 days":"90-110 நாட்கள்","100-120 days":"100-120 நாட்கள்",
+        "90-100 days":"90-100 நாட்கள்","120-180 days":"120-180 நாட்கள்","75-90 days":"75-90 நாட்கள்",
+        "60-75 days":"60-75 நாட்கள்","70-90 days":"70-90 நாட்கள்","100-110 days":"100-110 நாட்கள்",
+        "150-180 days":"150-180 நாட்கள்","11-12 months":"11-12 மாதங்கள்",
+        "4-5 months fruiting cycle":"4-5 மாதங்கள் பழமுடியும் சுழற்சி","120-140 days":"120-140 நாட்கள்",
+        "80-100 days":"80-100 நாட்கள்","6-8 months fruiting cycle":"6-8 மாதங்கள் பழமுடியும் சுழற்சி",
+        "8-10 months":"8-10 மாதங்கள்","Year-round":"முழு ஆண்டு","120-150 days":"120-150 நாட்கள்",
+        "3-4 years to mature":"முழுமையாக வளர 3-4 ஆண்டுகள்"
+      },
+      kn: {
+        "Kharif":"ಖರೀಫ್","Rabi":"ರಬಿ","Zaid":"ಜೈದ್","Kharif/Rabi":"ಖರೀಫ್/ರಬಿ","Kharif/Zaid":"ಖರೀಫ್/ಜೈದ್",
+        "Annual":"ವಾರ್ಷಿಕ","Temperate":"ಸಮಶೀತೋಷ್ಣ","Perennial":"ಬಹುವರ್ಷೀಯ",
+        "High":"ಹೆಚ್ಚು","Moderate":"ಮಧ್ಯಮ","Low":"ಕಡಿಮೆ","Low to Moderate":"ಕಡಿಮೆದಿಂದ ಮಧ್ಯಮ",
+        "Not Available":"ಲಭ್ಯವಿಲ್ಲ",
+        "110-130 days":"110-130 ದಿನಗಳು","90-110 days":"90-110 ದಿನಗಳು","100-120 days":"100-120 ದಿನಗಳು",
+        "90-100 days":"90-100 ದಿನಗಳು","120-180 days":"120-180 ದಿನಗಳು","75-90 days":"75-90 ದಿನಗಳು",
+        "60-75 days":"60-75 ದಿನಗಳು","70-90 days":"70-90 ದಿನಗಳು","100-110 days":"100-110 ದಿನಗಳು",
+        "150-180 days":"150-180 ದಿನಗಳು","11-12 months":"11-12 ತಿಂಗಳುಗಳು",
+        "4-5 months fruiting cycle":"4-5 ತಿಂಗಳ ಫಲಧಾರಣೆ ಚಕ್ರ","120-140 days":"120-140 ದಿನಗಳು",
+        "80-100 days":"80-100 ದಿನಗಳು","6-8 months fruiting cycle":"6-8 ತಿಂಗಳ ಫಲಧಾರಣೆ ಚಕ್ರ",
+        "8-10 months":"8-10 ತಿಂಗಳುಗಳು","Year-round":"ಪೂರ್ಣ ವರ್ಷ","120-150 days":"120-150 ದಿನಗಳು",
+        "3-4 years to mature":"ಪೂರ್ಣ ಬೆಳವಣಿಗೆಗೆ 3-4 ವರ್ಷಗಳು"
+      },
+      ml: {
+        "Kharif":"ഖരീഫ്","Rabi":"റബി","Zaid":"സൈദ്","Kharif/Rabi":"ഖരീഫ്/റബി","Kharif/Zaid":"ഖരീഫ്/സൈദ്",
+        "Annual":"വാർഷിക","Temperate":"സമശീതോഷ്ണ","Perennial":"ബഹുവർഷ",
+        "High":"ഉയർന്ന്","Moderate":"മിതമായ","Low":"കുറഞ്ഞ","Low to Moderate":"കുറഞ്ഞ മുതൽ മിതമായ",
+        "Not Available":"ലഭ്യമല്ല",
+        "110-130 days":"110-130 ദിവസം","90-110 days":"90-110 ദിവസം","100-120 days":"100-120 ദിവസം",
+        "90-100 days":"90-100 ദിവസം","120-180 days":"120-180 ദിവസം","75-90 days":"75-90 ദിവസം",
+        "60-75 days":"60-75 ദിവസം","70-90 days":"70-90 ദിവസം","100-110 days":"100-110 ദിവസം",
+        "150-180 days":"150-180 ദിവസം","11-12 months":"11-12 മാസം",
+        "4-5 months fruiting cycle":"4-5 മാസ ഫലധാര ചക്രം","120-140 days":"120-140 ദിവസം",
+        "80-100 days":"80-100 ദിവസം","6-8 months fruiting cycle":"6-8 മാസ ഫലധാര ചക്രം",
+        "8-10 months":"8-10 മാസം","Year-round":"വർഷം മുഴുവൻ","120-150 days":"120-150 ദിവസം",
+        "3-4 years to mature":"പൂർണ്ണ വളർച്ചയ്ക്ക് 3-4 വർഷം"
+      },
+      mr: {
+        "Kharif":"खरीप","Rabi":"रब्बी","Zaid":"जायद","Kharif/Rabi":"खरीप/रब्बी","Kharif/Zaid":"खरीप/जायद",
+        "Annual":"वार्षिक","Temperate":"समशीतोष्ण","Perennial":"बहुवर्षीय",
+        "High":"जास्त","Moderate":"मध्यम","Low":"कमी","Low to Moderate":"कमी ते मध्यम",
+        "Not Available":"उपलब्ध नाही",
+        "110-130 days":"110-130 दिवस","90-110 days":"90-110 दिवस","100-120 days":"100-120 दिवस",
+        "90-100 days":"90-100 दिवस","120-180 days":"120-180 दिवस","75-90 days":"75-90 दिवस",
+        "60-75 days":"60-75 दिवस","70-90 days":"70-90 दिवस","100-110 days":"100-110 दिवस",
+        "150-180 days":"150-180 दिवस","11-12 months":"11-12 महिने",
+        "4-5 months fruiting cycle":"4-5 महिन्यांचा फलधारणा चक्र","120-140 days":"120-140 दिवस",
+        "80-100 days":"80-100 दिवस","6-8 months fruiting cycle":"6-8 महिन्यांचा फलधारणा चक्र",
+        "8-10 months":"8-10 महिने","Year-round":"संपूर्ण वर्ष","120-150 days":"120-150 दिवस",
+        "3-4 years to mature":"पूर्ण वाढीस 3-4 वर्षे"
+      },
+      gu: {
+        "Kharif":"ખરીફ","Rabi":"રબી","Zaid":"ઝાયદ","Kharif/Rabi":"ખરીફ/રબી","Kharif/Zaid":"ખરીફ/ઝાયદ",
+        "Annual":"વાર્ષિક","Temperate":"સમશીતોષ્ણ","Perennial":"બહુવર્ષીય",
+        "High":"વધારે","Moderate":"મધ્યમ","Low":"ઓછું","Low to Moderate":"ઓછું થી મધ્યમ",
+        "Not Available":"ઉપલબ્ધ નથી",
+        "110-130 days":"110-130 દિવસ","90-110 days":"90-110 દિવસ","100-120 days":"100-120 દિવસ",
+        "90-100 days":"90-100 દિવસ","120-180 days":"120-180 દિવસ","75-90 days":"75-90 દિવસ",
+        "60-75 days":"60-75 દિવસ","70-90 days":"70-90 દિવસ","100-110 days":"100-110 દિવસ",
+        "150-180 days":"150-180 દિવસ","11-12 months":"11-12 મહિના",
+        "4-5 months fruiting cycle":"4-5 મહિનાનો ફળચક્ર","120-140 days":"120-140 દિવસ",
+        "80-100 days":"80-100 દિવસ","6-8 months fruiting cycle":"6-8 મહિનાનો ફળચક્ર",
+        "8-10 months":"8-10 મહિના","Year-round":"સાલભર","120-150 days":"120-150 દિવસ",
+        "3-4 years to mature":"પૂર્ણ વિકાસ માટે 3-4 વર્ષ"
+      },
+      bn: {
+        "Kharif":"খরিফ","Rabi":"রবি","Zaid":"জায়েদ","Kharif/Rabi":"খরিফ/রবি","Kharif/Zaid":"খরিফ/জায়েদ",
+        "Annual":"বার্ষিক","Temperate":"সমশীতল","Perennial":"বহুবর্ষজীবী",
+        "High":"উচ্চ","Moderate":"মাঝারি","Low":"কম","Low to Moderate":"কম থেকে মাঝারি",
+        "Not Available":"উপলব্ধ নয়",
+        "110-130 days":"110-130 দিন","90-110 days":"90-110 দিন","100-120 days":"100-120 দিন",
+        "90-100 days":"90-100 দিন","120-180 days":"120-180 দিন","75-90 days":"75-90 দিন",
+        "60-75 days":"60-75 দিন","70-90 days":"70-90 দিন","100-110 days":"100-110 দিন",
+        "150-180 days":"150-180 দিন","11-12 months":"11-12 মাস",
+        "4-5 months fruiting cycle":"4-5 মাসের ফলন চক্র","120-140 days":"120-140 দিন",
+        "80-100 days":"80-100 দিন","6-8 months fruiting cycle":"6-8 মাসের ফলন চক্র",
+        "8-10 months":"8-10 মাস","Year-round":"সারা বছর","120-150 days":"120-150 দিন",
+        "3-4 years to mature":"পূর্ণ পরিপক্ব হতে 3-4 বছর"
+      },
+      pa: {
+        "Kharif":"ਖਰੀਫ","Rabi":"ਰਬੀ","Zaid":"ਜ਼ਾਇਦ","Kharif/Rabi":"ਖਰੀਫ/ਰਬੀ","Kharif/Zaid":"ਖਰੀਫ/ਜ਼ਾਇਦ",
+        "Annual":"ਸਲਾਨਾ","Temperate":"ਸਮਸ਼ੀਤੋਸ਼ਣ","Perennial":"ਬਹੁਵਰਸੀ",
+        "High":"ਵੱਧ","Moderate":"ਦਰਮਿਆਨਾ","Low":"ਘੱਟ","Low to Moderate":"ਘੱਟ ਤੋਂ ਦਰਮਿਆਨਾ",
+        "Not Available":"ਉਪਲਬਧ ਨਹੀਂ",
+        "110-130 days":"110-130 ਦਿਨ","90-110 days":"90-110 ਦਿਨ","100-120 days":"100-120 ਦਿਨ",
+        "90-100 days":"90-100 ਦਿਨ","120-180 days":"120-180 ਦਿਨ","75-90 days":"75-90 ਦਿਨ",
+        "60-75 days":"60-75 ਦਿਨ","70-90 days":"70-90 ਦਿਨ","100-110 days":"100-110 ਦਿਨ",
+        "150-180 days":"150-180 ਦਿਨ","11-12 months":"11-12 ਮਹੀਨੇ",
+        "4-5 months fruiting cycle":"4-5 ਮਹੀਨੇ ਫਲ ਚੱਕਰ","120-140 days":"120-140 ਦਿਨ",
+        "80-100 days":"80-100 ਦਿਨ","6-8 months fruiting cycle":"6-8 ਮਹੀਨੇ ਫਲ ਚੱਕਰ",
+        "8-10 months":"8-10 ਮਹੀਨੇ","Year-round":"ਸਾਲ ਭਰ","120-150 days":"120-150 ਦਿਨ",
+        "3-4 years to mature":"ਪੂਰੀ ਤਰ੍ਹਾਂ ਤਿਆਰ ਹੋਣ ਲਈ 3-4 ਸਾਲ"
+      },
+      or: {
+        "Kharif":"ଖରିଫ","Rabi":"ରବି","Zaid":"ଜାୟେଦ୍","Kharif/Rabi":"ଖରିଫ/ରବି","Kharif/Zaid":"ଖରିଫ/ଜାୟେଦ୍",
+        "Annual":"ବାର୍ଷିକ","Temperate":"ସମଶୀତୋଷ୍ଣ","Perennial":"ବହୁବର୍ଷୀୟ",
+        "High":"ଅଧିକ","Moderate":"ମଧ୍ୟମ","Low":"କମ୍","Low to Moderate":"କମ୍ ଠାରୁ ମଧ୍ୟମ",
+        "Not Available":"ଉପଲବ୍ଧ ନୁହେଁ",
+        "110-130 days":"110-130 ଦିନ","90-110 days":"90-110 ଦିନ","100-120 days":"100-120 ଦିନ",
+        "90-100 days":"90-100 ଦିନ","120-180 days":"120-180 ଦିନ","75-90 days":"75-90 ଦିନ",
+        "60-75 days":"60-75 ଦିନ","70-90 days":"70-90 ଦିନ","100-110 days":"100-110 ଦିନ",
+        "150-180 days":"150-180 ଦିନ","11-12 months":"11-12 ମାସ",
+        "4-5 months fruiting cycle":"4-5 ମାସର ଫଳ ଚକ୍ର","120-140 days":"120-140 ଦିନ",
+        "80-100 days":"80-100 ଦିନ","6-8 months fruiting cycle":"6-8 ମାସର ଫଳ ଚକ୍ର",
+        "8-10 months":"8-10 ମାସ","Year-round":"ସାରା ବର୍ଷ","120-150 days":"120-150 ଦିନ",
+        "3-4 years to mature":"ପୂର୍ଣ୍ଣ ବିକାଶ ପାଇଁ 3-4 ବର୍ଷ"
+      },
+      ur: {
+        "Kharif":"خریف","Rabi":"ربیع","Zaid":"زائد","Kharif/Rabi":"خریف/ربیع","Kharif/Zaid":"خریف/زائد",
+        "Annual":"سالانہ","Temperate":"معتدل","Perennial":"کئی سالہ",
+        "High":"زیادہ","Moderate":"درمیانہ","Low":"کم","Low to Moderate":"کم سے درمیانہ",
+        "Not Available":"دستیاب نہیں",
+        "110-130 days":"110-130 دن","90-110 days":"90-110 دن","100-120 days":"100-120 دن",
+        "90-100 days":"90-100 دن","120-180 days":"120-180 دن","75-90 days":"75-90 دن",
+        "60-75 days":"60-75 دن","70-90 days":"70-90 دن","100-110 days":"100-110 دن",
+        "150-180 days":"150-180 دن","11-12 months":"11-12 ماہ",
+        "4-5 months fruiting cycle":"4-5 ماہ کا پھل چکر","120-140 days":"120-140 دن",
+        "80-100 days":"80-100 دن","6-8 months fruiting cycle":"6-8 ماہ کا پھل چکر",
+        "8-10 months":"8-10 ماہ","Year-round":"سال بھر","120-150 days":"120-150 دن",
+        "3-4 years to mature":"مکمل طور پر تیار ہونے میں 3-4 سال"
+      }
+    };
+
+    const langVoiceMap = {
+      en: "en-US", hi: "hi-IN", te: "te-IN", ta: "ta-IN", kn: "kn-IN", ml: "ml-IN",
+      mr: "mr-IN", gu: "gu-IN", bn: "bn-IN", pa: "pa-IN", or: "or-IN", ur: "ur-PK"
+    };
+
+    const cropImages = {
+      rice:"crop-images/rice.jpg", maize:"crop-images/maize.jpg", chickpea:"crop-images/chickpea.jpg",
+      kidneybeans:"crop-images/kidneybeans.jpg", pigeonpeas:"crop-images/pigeonpeas.jpg",
+      mothbeans:"crop-images/mothbeans.jpg", mungbean:"crop-images/mungbean.jpg",
+      blackgram:"crop-images/blackgram.jpg", lentil:"crop-images/lentil.jpg",
+      pomegranate:"crop-images/pomegranate.jpg", banana:"crop-images/banana.jpg",
+      mango:"crop-images/mango.jpg", grapes:"crop-images/grapes.jpg",
+      watermelon:"crop-images/watermelon.jpg", muskmelon:"crop-images/muskmelon.jpg",
+      apple:"crop-images/apple.jpg", orange:"crop-images/orange.jpg",
+      papaya:"crop-images/papaya.jpg", coconut:"crop-images/coconut.jpg",
+      cotton:"crop-images/cotton.jpg", jute:"crop-images/jute.jpg",
+      coffee:"crop-images/coffee.jpg"
+    };
+
+    const cropSupportData = {
+      rice:{ fertilizers:["Urea","DAP","Potash"], season:"Kharif", duration:"110-130 days", water_requirement:"High", ideal_soil:"Clayey Soil" },
+      maize:{ fertilizers:["Urea","NPK","Compost"], season:"Kharif/Rabi", duration:"90-110 days", water_requirement:"Moderate", ideal_soil:"Loamy Soil" },
+      chickpea:{ fertilizers:["Super Phosphate","Compost","Potash"], season:"Rabi", duration:"100-120 days", water_requirement:"Low to Moderate", ideal_soil:"Loamy Soil" },
+      kidneybeans:{ fertilizers:["DAP","Farmyard Manure","Potash"], season:"Rabi", duration:"90-100 days", water_requirement:"Moderate", ideal_soil:"Loamy Soil" },
+      pigeonpeas:{ fertilizers:["DAP","Compost","Potash"], season:"Kharif", duration:"120-180 days", water_requirement:"Moderate", ideal_soil:"Red Soil" },
+      mothbeans:{ fertilizers:["Organic Compost","DAP","Potash"], season:"Kharif", duration:"75-90 days", water_requirement:"Low", ideal_soil:"Sandy Soil" },
+      mungbean:{ fertilizers:["DAP","Compost","Biofertilizer"], season:"Kharif/Zaid", duration:"60-75 days", water_requirement:"Low to Moderate", ideal_soil:"Loamy Soil" },
+      blackgram:{ fertilizers:["DAP","Organic Manure","Potash"], season:"Kharif", duration:"70-90 days", water_requirement:"Moderate", ideal_soil:"Black Soil" },
+      lentil:{ fertilizers:["Super Phosphate","Compost","Potash"], season:"Rabi", duration:"100-110 days", water_requirement:"Low", ideal_soil:"Loamy Soil" },
+      pomegranate:{ fertilizers:["Organic Manure","NPK","Micronutrients"], season:"Annual", duration:"150-180 days", water_requirement:"Moderate", ideal_soil:"Black Soil" },
+      banana:{ fertilizers:["Urea","Potash","Organic Manure"], season:"Annual", duration:"11-12 months", water_requirement:"High", ideal_soil:"Loamy Soil" },
+      mango:{ fertilizers:["FYM","NPK","Micronutrients"], season:"Annual", duration:"4-5 months fruiting cycle", water_requirement:"Moderate", ideal_soil:"Alluvial Soil" },
+      grapes:{ fertilizers:["NPK","Organic Compost","Potash"], season:"Annual", duration:"120-140 days", water_requirement:"Moderate", ideal_soil:"Loamy Soil" },
+      watermelon:{ fertilizers:["NPK","Compost","Potash"], season:"Zaid", duration:"80-100 days", water_requirement:"Moderate", ideal_soil:"Sandy Soil" },
+      muskmelon:{ fertilizers:["Compost","NPK","Potash"], season:"Zaid", duration:"75-90 days", water_requirement:"Moderate", ideal_soil:"Sandy Soil" },
+      apple:{ fertilizers:["Organic Manure","NPK","Calcium"], season:"Temperate", duration:"150-180 days", water_requirement:"Moderate", ideal_soil:"Loamy Soil" },
+      orange:{ fertilizers:["NPK","Organic Manure","Micronutrients"], season:"Annual", duration:"6-8 months fruiting cycle", water_requirement:"Moderate", ideal_soil:"Red Soil" },
+      papaya:{ fertilizers:["Urea","Super Phosphate","Potash"], season:"Annual", duration:"8-10 months", water_requirement:"Moderate", ideal_soil:"Loamy Soil" },
+      coconut:{ fertilizers:["Organic Manure","NPK","Magnesium"], season:"Annual", duration:"Year-round", water_requirement:"High", ideal_soil:"Sandy Soil" },
+      cotton:{ fertilizers:["Urea","DAP","Potash"], season:"Kharif", duration:"150-180 days", water_requirement:"Moderate", ideal_soil:"Black Soil" },
+      jute:{ fertilizers:["Urea","Super Phosphate","Potash"], season:"Kharif", duration:"120-150 days", water_requirement:"High", ideal_soil:"Alluvial Soil" },
+      coffee:{ fertilizers:["Organic Manure","NPK","Lime"], season:"Perennial", duration:"3-4 years to mature", water_requirement:"Moderate", ideal_soil:"Laterite Soil" }
+    };
+
+    function normalizeCrop(name) {
+      return String(name || "").trim().toLowerCase().replace(/\s+/g, "");
+    }
+
+    function getDisplayCropName(cropName, lang) {
+      const key = normalizeCrop(cropName);
+      return cropNameTranslations[lang]?.[key] || cropNameTranslations.en[key] || cropName;
+    }
+
+    function getDisplaySoil(soilName, lang) {
+      return soilTranslations[lang]?.[soilName] || soilTranslations.en[soilName] || soilName;
+    }
+
+    function getDisplayFertilizer(name, lang) {
+      return fertilizerTranslations[lang]?.[name] || fertilizerTranslations.en[name] || name;
+    }
+
+    function getDisplayPhrase(value, lang) {
+      return phraseTranslations[lang]?.[value] || phraseTranslations.en[value] || value;
+    }
+
+    function getLocalizedSoilMessage(cropName, selectedSoil, idealSoil, lang) {
+      const displayCrop = getDisplayCropName(cropName, lang);
+      const displaySelectedSoil = getDisplaySoil(selectedSoil, lang);
+      const displayIdealSoil = getDisplaySoil(idealSoil, lang);
+
+      if (lang === "hi") {
+        return selectedSoil === idealSoil
+          ? `${displaySelectedSoil} ${displayCrop} की खेती के लिए अत्यधिक उपयुक्त मिट्टी है।`
+          : `${displaySelectedSoil} ${displayCrop} के लिए मध्यम रूप से उपयुक्त है। उपयुक्त मिट्टी ${displayIdealSoil} है।`;
+      }
+      if (lang === "te") {
+        return selectedSoil === idealSoil
+          ? `${displaySelectedSoil} ${displayCrop} సాగుకు చాలా అనుకూలమైన మట్టి.`
+          : `${displaySelectedSoil} ${displayCrop} కు మోస్తరు అనుకూలం. సరైన మట్టి ${displayIdealSoil}.`;
+      }
+      if (lang === "ta") {
+        return selectedSoil === idealSoil
+          ? `${displaySelectedSoil} ${displayCrop} பயிரிட மிகவும் பொருத்தமான மண்.`
+          : `${displaySelectedSoil} ${displayCrop}க்கு மிதமான அளவில் பொருத்தமானது. சிறந்த மண் ${displayIdealSoil}.`;
+      }
+      if (lang === "kn") {
+        return selectedSoil === idealSoil
+          ? `${displaySelectedSoil} ${displayCrop} ಬೆಳೆಸಲು ಅತ್ಯಂತ ಸೂಕ್ತವಾದ ಮಣ್ಣು.`
+          : `${displaySelectedSoil} ${displayCrop}ಗೆ ಮಧ್ಯಮ ಮಟ್ಟದಲ್ಲಿ ಸೂಕ್ತವಾಗಿದೆ. ಸೂಕ್ತ ಮಣ್ಣು ${displayIdealSoil}.`;
+      }
+      if (lang === "ml") {
+        return selectedSoil === idealSoil
+          ? `${displaySelectedSoil} ${displayCrop} കൃഷിക്ക് വളരെ അനുയോജ്യമായ മണ്ണാണ്.`
+          : `${displaySelectedSoil} ${displayCrop}യ്ക്ക് മിതമായ അനുയോജ്യതയുണ്ട്. അനുയോജ്യമായ മണ്ണ് ${displayIdealSoil}.`;
+      }
+      if (lang === "mr") {
+        return selectedSoil === idealSoil
+          ? `${displaySelectedSoil} ही ${displayCrop} लागवडीसाठी अत्यंत योग्य माती आहे.`
+          : `${displaySelectedSoil} ही ${displayCrop} साठी मध्यम प्रमाणात योग्य आहे. योग्य माती ${displayIdealSoil} आहे.`;
+      }
+      if (lang === "gu") {
+        return selectedSoil === idealSoil
+          ? `${displaySelectedSoil} ${displayCrop} માટે ખૂબ જ યોગ્ય માટી છે.`
+          : `${displaySelectedSoil} ${displayCrop} માટે મધ્યમ રીતે યોગ્ય છે. યોગ્ય માટી ${displayIdealSoil} છે.`;
+      }
+      if (lang === "bn") {
+        return selectedSoil === idealSoil
+          ? `${displaySelectedSoil} ${displayCrop} চাষের জন্য খুবই উপযুক্ত মাটি।`
+          : `${displaySelectedSoil} ${displayCrop} এর জন্য মাঝারি উপযুক্ত। উপযুক্ত মাটি হলো ${displayIdealSoil}।`;
+      }
+      if (lang === "pa") {
+        return selectedSoil === idealSoil
+          ? `${displaySelectedSoil} ${displayCrop} ਦੀ ਖੇਤੀ ਲਈ ਬਹੁਤ ਹੀ ਉਚਿਤ ਮਿੱਟੀ ਹੈ।`
+          : `${displaySelectedSoil} ${displayCrop} ਲਈ ਦਰਮਿਆਨੇ ਤੌਰ 'ਤੇ ਉਚਿਤ ਹੈ। ਉਚਿਤ ਮਿੱਟੀ ${displayIdealSoil} ਹੈ।`;
+      }
+      if (lang === "or") {
+        return selectedSoil === idealSoil
+          ? `${displaySelectedSoil} ${displayCrop} ଚାଷ ପାଇଁ ଅତ୍ୟନ୍ତ ଉପଯୁକ୍ତ ମାଟି।`
+          : `${displaySelectedSoil} ${displayCrop} ପାଇଁ ମଧ୍ୟମ ଭାବେ ଉପଯୁକ୍ତ। ଉପଯୁକ୍ତ ମାଟି ${displayIdealSoil}।`;
+      }
+      if (lang === "ur") {
+        return selectedSoil === idealSoil
+          ? `${displaySelectedSoil} ${displayCrop} کی کاشت کے لیے بہت موزوں مٹی ہے۔`
+          : `${displaySelectedSoil} ${displayCrop} کے لیے درمیانی حد تک موزوں ہے۔ موزوں مٹی ${displayIdealSoil} ہے۔`;
+      }
+      return selectedSoil === idealSoil
+        ? `${displaySelectedSoil} is highly suitable for ${displayCrop} cultivation.`
+        : `${displaySelectedSoil} is moderately suitable for ${displayCrop}. Ideal soil is ${displayIdealSoil}.`;
+    }
+
+    function getLocalizedWeatherTip(lang, temperature, humidity, rainfall) {
+      let tips = [];
+
+      if (lang === "hi") {
+        if (rainfall > 200) tips.push("अधिक वर्षा पाई गई। खेत में उचित जल निकासी रखें।");
+        else if (rainfall < 50) tips.push("कम वर्षा पाई गई। नियमित सिंचाई की योजना बनाएं।");
+        if (temperature > 32) tips.push("उच्च तापमान है। मल्चिंग से नमी बचाई जा सकती है।");
+        else if (temperature < 18) tips.push("ठंडा मौसम है। फसल की वृद्धि धीमी हो सकती है।");
+        if (humidity < 50) tips.push("कम आर्द्रता है। मिट्टी की नमी पर ध्यान दें।");
+        else if (humidity > 85) tips.push("बहुत अधिक आर्द्रता है। फफूंद रोगों पर ध्यान दें।");
+        return tips.length ? tips.join(" ") : "मौसम की स्थितियाँ सामान्य वृद्धि के लिए उपयुक्त लगती हैं।";
+      }
+
+      if (lang === "te") {
+        if (rainfall > 200) tips.push("అధిక వర్షపాతం ఉంది. పొలంలో మంచి డ్రైనేజ్ ఉండాలి.");
+        else if (rainfall < 50) tips.push("తక్కువ వర్షపాతం ఉంది. క్రమమైన నీటిపారుదల అవసరం.");
+        if (temperature > 32) tips.push("ఉష్ణోగ్రత ఎక్కువగా ఉంది. మల్చింగ్ వల్ల తేమ నిల్వ ఉంటుంది.");
+        else if (temperature < 18) tips.push("చల్లని వాతావరణం ఉంది. పంట వృద్ధి నెమ్మదిగా ఉండవచ్చు.");
+        if (humidity < 50) tips.push("ఆర్ద్రత తక్కువగా ఉంది. నేల తేమను గమనించండి.");
+        else if (humidity > 85) tips.push("ఆర్ద్రత చాలా ఎక్కువగా ఉంది. ఫంగస్ వ్యాధులపై జాగ్రత్త.");
+        return tips.length ? tips.join(" ") : "వాతావరణ పరిస్థితులు సాధారణ పంట వృద్ధికి అనుకూలంగా ఉన్నాయి.";
+      }
+
+      if (lang === "ta") {
+        if (rainfall > 200) tips.push("அதிக மழைப்பொழிவு உள்ளது. நல்ல வடிகால் அவசியம்.");
+        else if (rainfall < 50) tips.push("குறைந்த மழைப்பொழிவு உள்ளது. பாசனத்தை திட்டமிடுங்கள்.");
+        if (temperature > 32) tips.push("அதிக வெப்பநிலை உள்ளது. மண்ணின் ஈரத்தை பாதுகாக்க மல்சிங் உதவும்.");
+        else if (temperature < 18) tips.push("குளிர்ந்த காலநிலை உள்ளது. பயிர் வளர்ச்சி மெதுவாக இருக்கலாம்.");
+        if (humidity < 50) tips.push("ஈரப்பதம் குறைவாக உள்ளது. மண்ணின் ஈரத்தை கவனிக்கவும்.");
+        else if (humidity > 85) tips.push("மிக அதிக ஈரப்பதம் உள்ளது. பூஞ்சை நோய்களை கவனிக்கவும்.");
+        return tips.length ? tips.join(" ") : "காலநிலை சாதாரண வளர்ச்சிக்கு ஏற்றதாக உள்ளது.";
+      }
+
+      if (lang === "kn") {
+        if (rainfall > 200) tips.push("ಹೆಚ್ಚಿನ ಮಳೆಯಾಗಿದೆ. ಹೊಲದಲ್ಲಿ ಸರಿಯಾದ ನೀರುಹೊರೆ ವ್ಯವಸ್ಥೆ ಇರಲಿ.");
+        else if (rainfall < 50) tips.push("ಕಡಿಮೆ ಮಳೆಯಾಗಿದೆ. ನಿಯಮಿತ ನೀರಾವರಿ ಯೋಜಿಸಿ.");
+        if (temperature > 32) tips.push("ಉಷ್ಣಾಂಶ ಹೆಚ್ಚಾಗಿದೆ. ಮಲ್ಚಿಂಗ್ ತೇವಾಂಶವನ್ನು ಉಳಿಸಲು ಸಹಾಯಕ.");
+        else if (temperature < 18) tips.push("ತಂಪಾದ ಹವಾಮಾನ ಇದೆ. ಬೆಳೆ ಬೆಳವಣಿಗೆ ನಿಧಾನವಾಗಬಹುದು.");
+        if (humidity < 50) tips.push("ಆರ್ದ್ರತೆ ಕಡಿಮೆ ಇದೆ. ಮಣ್ಣಿನ ತೇವಾಂಶ ಗಮನಿಸಿ.");
+        else if (humidity > 85) tips.push("ಆರ್ದ್ರತೆ ತುಂಬಾ ಹೆಚ್ಚು ಇದೆ. ಫಂಗಸ್ ರೋಗಗಳ ಬಗ್ಗೆ ಜಾಗರೂಕರಾಗಿರಿ.");
+        return tips.length ? tips.join(" ") : "ಹವಾಮಾನ ಪರಿಸ್ಥಿತಿಗಳು ಸಾಮಾನ್ಯ ಬೆಳೆ ಬೆಳವಣಿಗೆಗೆ ಸೂಕ್ತವಾಗಿವೆ.";
+      }
+
+      if (lang === "ml") {
+        if (rainfall > 200) tips.push("മഴ കൂടുതലാണ്. വെള്ളം ഒഴുകാൻ നല്ല സൗകര്യം വേണം.");
+        else if (rainfall < 50) tips.push("മഴ കുറവാണ്. സ്ഥിരമായ ജലസേചനം ആസൂത്രണം ചെയ്യുക.");
+        if (temperature > 32) tips.push("ഉയർന്ന താപനിലയാണ്. മൾച്ചിംഗ് മണ്ണിലെ ഈർപ്പം നിലനിർത്താൻ സഹായിക്കും.");
+        else if (temperature < 18) tips.push("തണുത്ത കാലാവസ്ഥയാണ്. വിളവിന്റെ വളർച്ച മന്ദഗതിയിലാകാം.");
+        if (humidity < 50) tips.push("ആർദ്രത കുറവാണ്. മണ്ണിലെ ഈർപ്പം ശ്രദ്ധിക്കുക.");
+        else if (humidity > 85) tips.push("ആർദ്രത വളരെ കൂടുതലാണ്. ഫംഗസ് രോഗങ്ങൾ ശ്രദ്ധിക്കുക.");
+        return tips.length ? tips.join(" ") : "കാലാവസ്ഥ സാധാരണ വിളവിന്റെ വളർച്ചയ്ക്ക് അനുയോജ്യമാണ്.";
+      }
+
+      if (lang === "mr") {
+        if (rainfall > 200) tips.push("पाऊस जास्त आहे. शेतात योग्य निचरा ठेवा.");
+        else if (rainfall < 50) tips.push("पाऊस कमी आहे. नियमित सिंचनाची योजना करा.");
+        if (temperature > 32) tips.push("तापमान जास्त आहे. मल्चिंगमुळे मातीतील आर्द्रता टिकते.");
+        else if (temperature < 18) tips.push("थंड हवामान आहे. पिकांची वाढ मंदावू शकते.");
+        if (humidity < 50) tips.push("आर्द्रता कमी आहे. मातीतील ओलावा लक्षात ठेवा.");
+        else if (humidity > 85) tips.push("आर्द्रता खूप जास्त आहे. बुरशीजन्य रोगांवर लक्ष ठेवा.");
+        return tips.length ? tips.join(" ") : "हवामानाची स्थिती सामान्य पिकवाढीस योग्य दिसते.";
+      }
+
+      if (lang === "gu") {
+        if (rainfall > 200) tips.push("વરસાદ વધુ છે. ખેતરમાં યોગ્ય નિકાસ રાખો.");
+        else if (rainfall < 50) tips.push("વરસાદ ઓછો છે. નિયમિત સિંચાઈની યોજના બનાવો.");
+        if (temperature > 32) tips.push("તાપમાન વધુ છે. મલ્ચિંગ માટીની ભેજ જાળવવામાં મદદ કરે છે.");
+        else if (temperature < 18) tips.push("ઠંડુ હવામાન છે. પાકની વૃદ્ધિ ધીમી થઈ શકે છે.");
+        if (humidity < 50) tips.push("આર્દ્રતા ઓછી છે. માટીની ભેજ પર ધ્યાન આપો.");
+        else if (humidity > 85) tips.push("આર્દ્રતા ખૂબ વધુ છે. ફૂગના રોગો પર નજર રાખો.");
+        return tips.length ? tips.join(" ") : "હવામાનની પરિસ્થિતિ સામાન્ય પાક વૃદ્ધિ માટે યોગ્ય છે.";
+      }
+
+      if (lang === "bn") {
+        if (rainfall > 200) tips.push("বৃষ্টিপাত বেশি। জমিতে ভাল নিষ্কাশন ব্যবস্থা রাখুন।");
+        else if (rainfall < 50) tips.push("বৃষ্টিপাত কম। নিয়মিত সেচের পরিকল্পনা করুন।");
+        if (temperature > 32) tips.push("তাপমাত্রা বেশি। মালচিং মাটির আর্দ্রতা ধরে রাখতে সাহায্য করবে।");
+        else if (temperature < 18) tips.push("আবহাওয়া ঠান্ডা। ফসলের বৃদ্ধি ধীর হতে পারে।");
+        if (humidity < 50) tips.push("আর্দ্রতা কম। মাটির আর্দ্রতার দিকে নজর দিন।");
+        else if (humidity > 85) tips.push("আর্দ্রতা খুব বেশি। ছত্রাকজনিত রোগের দিকে নজর দিন।");
+        return tips.length ? tips.join(" ") : "আবহাওয়া সাধারণ ফসল বৃদ্ধির জন্য উপযুক্ত।";
+      }
+
+      if (lang === "pa") {
+        if (rainfall > 200) tips.push("ਮੀਂਹ ਜ਼ਿਆਦਾ ਹੈ। ਖੇਤ ਵਿੱਚ ਠੀਕ ਨਿਕਾਸ ਰੱਖੋ।");
+        else if (rainfall < 50) tips.push("ਮੀਂਹ ਘੱਟ ਹੈ। ਨਿਯਮਿਤ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।");
+        if (temperature > 32) tips.push("ਤਾਪਮਾਨ ਵੱਧ ਹੈ। ਮਲਚਿੰਗ ਮਿੱਟੀ ਦੀ ਨਮੀ ਬਚਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰੇਗੀ।");
+        else if (temperature < 18) tips.push("ਠੰਢਾ ਮੌਸਮ ਹੈ। ਫਸਲ ਦੀ ਵਰਧੀ ਹੌਲੀ ਹੋ ਸਕਦੀ ਹੈ।");
+        if (humidity < 50) tips.push("ਨਮੀ ਘੱਟ ਹੈ। ਮਿੱਟੀ ਦੀ ਨਮੀ 'ਤੇ ਧਿਆਨ ਦਿਓ।");
+        else if (humidity > 85) tips.push("ਨਮੀ ਬਹੁਤ ਜ਼ਿਆਦਾ ਹੈ। ਫੰਗਸ ਬਿਮਾਰੀਆਂ 'ਤੇ ਧਿਆਨ ਦਿਓ।");
+        return tips.length ? tips.join(" ") : "ਮੌਸਮ ਦੀ ਸਥਿਤੀ ਆਮ ਫਸਲ ਵਾਧੇ ਲਈ ਉਚਿਤ ਹੈ।";
+      }
+
+      if (lang === "or") {
+        if (rainfall > 200) tips.push("ବର୍ଷା ଅଧିକ। ଜମିରେ ଭଲ ନିସ୍କାଶନ ବ୍ୟବସ୍ଥା ରଖନ୍ତୁ।");
+        else if (rainfall < 50) tips.push("ବର୍ଷା କମ୍। ନିୟମିତ ସିଚାଇ ଯୋଜନା କରନ୍ତୁ।");
+        if (temperature > 32) tips.push("ତାପମାତ୍ରା ଅଧିକ। ମଲ୍ଚିଙ୍ଗ ମାଟିର ଆର୍ଦ୍ରତା ରକ୍ଷା କରେ।");
+        else if (temperature < 18) tips.push("ଠଣ୍ଡା ପରିବେଶ। ଫସଲ ବୃଦ୍ଧି ଧୀର ହୋଇପାରେ।");
+        if (humidity < 50) tips.push("ଆର୍ଦ୍ରତା କମ୍। ମାଟିର ଆର୍ଦ୍ରତା ଉପରେ ଧ୍ୟାନ ଦିଅନ୍ତୁ।");
+        else if (humidity > 85) tips.push("ଆର୍ଦ୍ରତା ବହୁତ ଅଧିକ। ଫଙ୍ଗସ ରୋଗ ପାଇଁ ସତର୍କ ରହନ୍ତୁ।");
+        return tips.length ? tips.join(" ") : "ଆବହାଓା ସାଧାରଣ ଫସଲ ବୃଦ୍ଧି ପାଇଁ ଉପଯୁକ୍ତ।";
+      }
+
+      if (lang === "ur") {
+        if (rainfall > 200) tips.push("بارش زیادہ ہے۔ کھیت میں مناسب نکاسی رکھیں۔");
+        else if (rainfall < 50) tips.push("بارش کم ہے۔ باقاعدہ آبپاشی کی منصوبہ بندی کریں۔");
+        if (temperature > 32) tips.push("درجہ حرارت زیادہ ہے۔ ملچنگ مٹی کی نمی محفوظ رکھنے میں مدد دے سکتی ہے۔");
+        else if (temperature < 18) tips.push("موسم ٹھنڈا ہے۔ فصل کی بڑھوتری سست ہو سکتی ہے۔");
+        if (humidity < 50) tips.push("نمی کم ہے۔ مٹی کی نمی پر نظر رکھیں۔");
+        else if (humidity > 85) tips.push("نمی بہت زیادہ ہے۔ فنگس بیماریوں پر نظر رکھیں۔");
+        return tips.length ? tips.join(" ") : "موسمی حالات عام فصل کی افزائش کے لیے موزوں ہیں۔";
+      }
+
+      if (rainfall > 200) tips.push("High rainfall detected. Ensure proper drainage in the field.");
+      else if (rainfall < 50) tips.push("Low rainfall detected. Plan irrigation support regularly.");
+      if (temperature > 32) tips.push("High temperature detected. Mulching can help conserve soil moisture.");
+      else if (temperature < 18) tips.push("Cool weather detected. Crop growth may be slower than usual.");
+      if (humidity < 50) tips.push("Low humidity detected. Monitor moisture levels carefully.");
+      else if (humidity > 85) tips.push("Very high humidity detected. Watch for fungal diseases.");
+      return tips.length ? tips.join(" ") : "Weather conditions look generally suitable for normal crop growth.";
+    }
+
+    function getSupportDetails(cropName, selectedSoil) {
+      const key = normalizeCrop(cropName);
+      const details = cropSupportData[key] || {
+        fertilizers: ["Organic Compost"],
+        season: "Not Available",
+        duration: "Not Available",
+        water_requirement: "Not Available",
+        ideal_soil: selectedSoil
+      };
+
+      return {
+        fertilizers: details.fertilizers,
+        crop_details: {
+          season: details.season,
+          duration: details.duration,
+          water_requirement: details.water_requirement,
+          ideal_soil: details.ideal_soil
+        }
+      };
+    }
+
+    function applyLanguage(lang) {
+      const t = translations[lang] || translations.en;
+
+      document.getElementById("logoText").innerText = t.logo;
+      document.getElementById("homeText").innerText = t.home;
+      document.getElementById("predictNavText").innerText = t.predictNav;
+      document.getElementById("resultBadge").innerText = t.badge;
+      document.getElementById("resultTitle").innerText = t.title;
+      document.getElementById("resultDesc").innerText = t.desc;
+      document.getElementById("clickHint").innerText = t.clickHint;
+      document.getElementById("recommendedCropLabel").innerText = t.selectedCrop;
+      document.getElementById("marketValueLabel").innerText = t.marketValue;
+      document.getElementById("tempText").innerText = t.temperature;
+      document.getElementById("humText").innerText = t.humidity;
+      document.getElementById("rainText").innerText = t.rainfall;
+      document.getElementById("soilText").innerText = t.soilType;
+      document.getElementById("top3Title").innerText = t.top3Title;
+      document.getElementById("soilSuitabilityTitle").innerText = t.soilSuitabilityTitle;
+      document.getElementById("weatherTipsTitle").innerText = t.weatherTipsTitle;
+      document.getElementById("fertilizerTitle").innerText = t.fertilizerTitle;
+      document.getElementById("cropDetailsTitle").innerText = t.cropDetailsTitle;
+      document.getElementById("seasonText").innerText = t.season;
+      document.getElementById("durationText").innerText = t.duration;
+      document.getElementById("waterReqText").innerText = t.waterReq;
+      document.getElementById("idealSoilText").innerText = t.idealSoil;
+      document.getElementById("tryAgainText").innerText = t.tryAgain;
+      document.getElementById("goHomeText").innerText = t.goHome;
+      document.getElementById("voiceBtn").innerText = t.voice;
+      document.getElementById("footerText").innerText = t.footer;
+
+      if (savedResult?.top3) {
+        renderTop3(savedResult.top3, lang);
+      }
+    }
+
+    function renderFertilizers(items, lang) {
+      const box = document.getElementById("fertilizerTags");
+      box.innerHTML = "";
+      items.forEach(item => {
+        const tag = document.createElement("span");
+        tag.className = "info-tag";
+        tag.innerText = getDisplayFertilizer(item, lang);
+        box.appendChild(tag);
+      });
+    }
+
+    function showSelectedCrop(cropItem) {
+      currentSelectedCrop = cropItem;
+
+      const selectedSoil = savedResult.soil || "-";
+      const currentLang = localStorage.getItem("selectedLanguage") || "en";
+      const support = getSupportDetails(cropItem.crop, selectedSoil);
+      const displayCrop = getDisplayCropName(cropItem.crop, currentLang);
+
+      document.getElementById("selectedCropDetails").classList.remove("details-hidden");
+      document.getElementById("selectedCropDetails").classList.add("details-visible");
+
+      document.getElementById("cropName").innerText = displayCrop;
+      document.getElementById("marketPrice").innerText =
+        cropItem.market_price ? "₹ " + cropItem.market_price : "Not Available";
+
+      document.getElementById("tempValue").innerText = savedResult.temperature + " °C";
+      document.getElementById("humValue").innerText = savedResult.humidity + " %";
+      document.getElementById("rainValue").innerText = savedResult.rainfall + " mm";
+      document.getElementById("soilValue").innerText = getDisplaySoil(savedResult.soil || "-", currentLang);
+
+      document.getElementById("soilMessage").innerText =
+        getLocalizedSoilMessage(cropItem.crop, selectedSoil, support.crop_details.ideal_soil, currentLang);
+
+      document.getElementById("weatherTip").innerText =
+        getLocalizedWeatherTip(currentLang, Number(savedResult.temperature), Number(savedResult.humidity), Number(savedResult.rainfall));
+
+      document.getElementById("seasonValue").innerText =
+        getDisplayPhrase(support.crop_details.season || "-", currentLang);
+
+      document.getElementById("durationValue").innerText =
+        getDisplayPhrase(support.crop_details.duration || "-", currentLang);
+
+      document.getElementById("waterReqValue").innerText =
+        getDisplayPhrase(support.crop_details.water_requirement || "-", currentLang);
+
+      document.getElementById("idealSoilValue").innerText =
+        getDisplaySoil(support.crop_details.ideal_soil || "-", currentLang);
+
+      renderFertilizers(support.fertilizers || [], currentLang);
+
+      const normalizedCrop = normalizeCrop(cropItem.crop);
+      const imagePath = cropImages[normalizedCrop] || "crop-images/default.jpg";
+      document.getElementById("cropImage").src = imagePath;
+      document.getElementById("cropImage").alt = cropItem.crop + " image";
+
+      document.querySelectorAll(".top3-card").forEach(card => card.classList.remove("selected-card"));
+      const target = document.querySelector(`[data-crop="${normalizedCrop}"]`);
+      if (target) target.classList.add("selected-card");
+    }
+
+    function renderTop3(top3, lang) {
+      const t = translations[lang] || translations.en;
+      const container = document.getElementById("top3Container");
+      container.innerHTML = "";
+
+      top3.forEach((item, index) => {
+        const displayCrop = getDisplayCropName(item.crop, lang);
+
+        const card = document.createElement("div");
+        card.className = "top3-card selectable-card";
+        card.dataset.crop = normalizeCrop(item.crop);
+        card.innerHTML = `
+          <div class="top3-rank">#${index + 1}</div>
+          <h4>${displayCrop}</h4>
+          <p>₹ ${item.market_price}</p>
+          <span class="score-badge">${item.score}% ${t.match}</span>
+        `;
+        card.addEventListener("click", () => showSelectedCrop(item));
+        container.appendChild(card);
+      });
+    }
+
+    function speakResult() {
+      const cropName = document.getElementById("cropName").innerText;
+      if (cropName === "-" || !window.speechSynthesis) return;
+
+      const lang = localStorage.getItem("selectedLanguage") || "en";
+      const voiceLang = langVoiceMap[lang] || "en-US";
+
+      const soilMsg = document.getElementById("soilMessage").innerText;
+      const weatherMsg = document.getElementById("weatherTip").innerText;
+      const marketMsg = document.getElementById("marketPrice").innerText;
+
+      const speechText = `${cropName}. ${marketMsg}. ${soilMsg}. ${weatherMsg}`;
+
+      const utterance = new SpeechSynthesisUtterance(speechText);
+      utterance.lang = voiceLang;
+      utterance.rate = 1;
+      utterance.pitch = 1;
+
+      const voices = window.speechSynthesis.getVoices();
+      let matchedVoice =
+        voices.find(v => v.lang.toLowerCase() === voiceLang.toLowerCase()) ||
+        voices.find(v => v.lang.toLowerCase().startsWith(lang.toLowerCase()));
+
+      if (matchedVoice) {
+        utterance.voice = matchedVoice;
+      }
+
+      speechSynthesis.cancel();
+      speechSynthesis.speak(utterance);
+    }
+
+    window.speechSynthesis.onvoiceschanged = () => {
+      window.speechSynthesis.getVoices();
+    };
+
+    document.getElementById("voiceBtn").addEventListener("click", speakResult);
+
+    languageSelect.addEventListener("change", function () {
+      const lang = this.value;
+      localStorage.setItem("selectedLanguage", lang);
+      applyLanguage(lang);
+
+      if (currentSelectedCrop) {
+        showSelectedCrop(currentSelectedCrop);
+      }
+
+      updateResultAssistantLanguage();
+    });
+
+    if (savedResult && savedResult.top3) {
+      renderTop3(savedResult.top3, localStorage.getItem("selectedLanguage") || "en");
+    }
+
+    window.addEventListener("DOMContentLoaded", function () {
+      const savedLang = localStorage.getItem("selectedLanguage") || "en";
+      languageSelect.value = savedLang;
+      applyLanguage(savedLang);
+      updateResultAssistantLanguage();
+    });
+  </script>
+
+  <script>
+    const assistantToggle = document.getElementById("assistantToggle");
+    const assistantBox = document.getElementById("assistantBox");
+    const assistantClose = document.getElementById("assistantClose");
+    const assistantMessage = document.getElementById("assistantMessage");
+    const assistantTitle = document.getElementById("assistantTitle");
+    const assistantButtons = document.querySelectorAll(".assistant-btn");
+
+    const resultAssistantTexts = {
+      en: {
+        title: "Farmer Assistant",
+        welcome: "Hello Farmer, how can I help you today?",
+        how: "Select one crop from the top 3 recommendations to view full crop details.",
+        top3: "The top 3 section shows the best crop suggestions based on your temperature, humidity, rainfall, and soil type.",
+        details: "After selecting a crop, you can view market value, soil suitability, weather tips, fertilizer recommendation, and crop details.",
+        voice: "Use the voice button to hear the result in your selected language if supported.",
+        speak: "Reading help in your selected language.",
+        howBtn: "How to use?",
+        top3Btn: "Top 3 help",
+        detailsBtn: "Details help",
+        voiceBtn: "Voice help",
+        speakBtn: "🔊 Read Help"
+      },
+
+      hi: {
+        title: "किसान सहायक",
+        welcome: "नमस्ते किसान, मैं आपकी कैसे मदद कर सकता हूँ?",
+        how: "पूरा विवरण देखने के लिए शीर्ष 3 अनुशंसाओं में से एक फसल चुनें।",
+        top3: "शीर्ष 3 भाग तापमान, आर्द्रता, वर्षा और मिट्टी के प्रकार के आधार पर सर्वोत्तम फसल सुझाव दिखाता है।",
+        details: "फसल चुनने के बाद आप बाजार मूल्य, मिट्टी उपयुक्तता, मौसम सुझाव, उर्वरक अनुशंसा और फसल विवरण देख सकते हैं।",
+        voice: "यदि समर्थित हो, तो परिणाम को चुनी गई भाषा में सुनने के लिए वॉइस बटन का उपयोग करें।",
+        speak: "आपकी चुनी हुई भाषा में सहायता पढ़ी जा रही है।",
+        howBtn: "कैसे उपयोग करें?",
+        top3Btn: "टॉप 3 सहायता",
+        detailsBtn: "विवरण सहायता",
+        voiceBtn: "वॉइस सहायता",
+        speakBtn: "🔊 सहायता पढ़ें"
+      },
+
+      te: {
+        title: "రైతు సహాయకుడు",
+        welcome: "నమస్కారం రైతు గారూ, నేను ఎలా సహాయపడగలను?",
+        how: "పూర్తి వివరాలు చూడడానికి టాప్ 3 సిఫార్సులలో ఒక పంటను ఎంచుకోండి.",
+        top3: "టాప్ 3 విభాగం మీ ఉష్ణోగ్రత, ఆర్ద్రత, వర్షపాతం, మట్టి రకం ఆధారంగా ఉత్తమ పంట సూచనలు చూపిస్తుంది.",
+        details: "పంటను ఎంచుకున్న తర్వాత మార్కెట్ విలువ, మట్టి అనుకూలత, వాతావరణ సూచనలు, ఎరువు సిఫార్సు మరియు పంట వివరాలను చూడవచ్చు.",
+        voice: "సపోర్ట్ ఉంటే, ఫలితాన్ని మీ ఎంచుకున్న భాషలో వినడానికి వాయిస్ బటన్ ఉపయోగించండి.",
+        speak: "మీరు ఎంచుకున్న భాషలో సహాయం చదవబడుతోంది.",
+        howBtn: "ఎలా ఉపయోగించాలి?",
+        top3Btn: "టాప్ 3 సహాయం",
+        detailsBtn: "వివరాల సహాయం",
+        voiceBtn: "వాయిస్ సహాయం",
+        speakBtn: "🔊 సహాయం చదవండి"
+      },
+
+      ta: {
+        title: "விவசாயி உதவியாளர்",
+        welcome: "வணக்கம் விவசாயி, நான் எப்படி உதவலாம்?",
+        how: "முழு விவரங்களை பார்க்க முதல் 3 பரிந்துரைகளில் இருந்து ஒரு பயிரைத் தேர்ந்தெடுக்கவும்.",
+        top3: "முதல் 3 பகுதி உங்கள் வெப்பநிலை, ஈரப்பதம், மழைப்பொழிவு மற்றும் மண் வகையின் அடிப்படையில் சிறந்த பயிர்களை காட்டும்.",
+        details: "ஒரு பயிரைத் தேர்ந்தெடுத்த பிறகு சந்தை மதிப்பு, மண் பொருத்தம், வானிலை குறிப்புகள், உர பரிந்துரை மற்றும் பயிர் விவரங்களை பார்க்கலாம்.",
+        voice: "ஆதரவு இருந்தால், முடிவை உங்கள் மொழியில் கேட்க வாய் பொத்தானைப் பயன்படுத்தவும்.",
+        speak: "நீங்கள் தேர்ந்தெடுத்த மொழியில் உதவி வாசிக்கப்படுகிறது.",
+        howBtn: "எப்படி பயன்படுத்துவது?",
+        top3Btn: "முதல் 3 உதவி",
+        detailsBtn: "விவர உதவி",
+        voiceBtn: "ஒலி உதவி",
+        speakBtn: "🔊 உதவியை வாசிக்கவும்"
+      },
+
+      kn: {
+        title: "ರೈತ ಸಹಾಯಕ",
+        welcome: "ನಮಸ್ಕಾರ ರೈತರೆ, ನಾನು ಹೇಗೆ ಸಹಾಯ ಮಾಡಲಿ?",
+        how: "ಪೂರ್ಣ ವಿವರಗಳನ್ನು ನೋಡಲು ಟಾಪ್ 3 ಶಿಫಾರಸುಗಳಲ್ಲಿ ಒಂದು ಬೆಳೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
+        top3: "ಟಾಪ್ 3 ವಿಭಾಗವು ನಿಮ್ಮ ತಾಪಮಾನ, ಆರ್ದ್ರತೆ, ಮಳೆಯ ಪ್ರಮಾಣ ಮತ್ತು ಮಣ್ಣಿನ ವಿಧದ ಆಧಾರದಲ್ಲಿ ಉತ್ತಮ ಬೆಳೆಗಳನ್ನು ತೋರಿಸುತ್ತದೆ.",
+        details: "ಬೆಳೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿದ ನಂತರ ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯ, ಮಣ್ಣಿನ ಹೊಂದಾಣಿಕೆ, ಹವಾಮಾನ ಸಲಹೆಗಳು, ರಸಗೊಬ್ಬರ ಶಿಫಾರಸು ಮತ್ತು ಬೆಳೆ ವಿವರಗಳನ್ನು ನೋಡಬಹುದು.",
+        voice: "ಸಪೋರ್ಟ್ ಇದ್ದರೆ, ನಿಮ್ಮ ಆಯ್ಕೆ ಮಾಡಿದ ಭಾಷೆಯಲ್ಲಿ ಫಲಿತಾಂಶವನ್ನು ಕೇಳಲು ವಾಯ್ಸ್ ಬಟನ್ ಬಳಸಿ.",
+        speak: "ನೀವು ಆಯ್ಕೆ ಮಾಡಿದ ಭಾಷೆಯಲ್ಲಿ ಸಹಾಯ ಓದಲಾಗುತ್ತಿದೆ.",
+        howBtn: "ಹೇಗೆ ಬಳಸುವುದು?",
+        top3Btn: "ಟಾಪ್ 3 ಸಹಾಯ",
+        detailsBtn: "ವಿವರ ಸಹಾಯ",
+        voiceBtn: "ವಾಯ್ಸ್ ಸಹಾಯ",
+        speakBtn: "🔊 ಸಹಾಯ ಓದಿ"
+      },
+
+      ml: {
+        title: "കർഷക സഹായി",
+        welcome: "നമസ്കാരം കർഷകാ, ഞാൻ എങ്ങനെ സഹായിക്കാം?",
+        how: "പൂർണ്ണ വിവരങ്ങൾ കാണാൻ മികച്ച 3 ശുപാർശകളിൽ നിന്ന് ഒരു വിള തിരഞ്ഞെടുക്കുക.",
+        top3: "മികച്ച 3 വിഭാഗം നിങ്ങളുടെ താപനില, ആർദ്രത, മഴ, മണ്ണിന്റെ തരം എന്നിവയുടെ അടിസ്ഥാനത്തിൽ മികച്ച വിളകൾ കാണിക്കും.",
+        details: "ഒരു വിള തിരഞ്ഞെടുക്കുന്നതിന് ശേഷം വിപണി വില, മണ്ണിന്റെ അനുയോജ്യത, കാലാവസ്ഥ നിർദേശങ്ങൾ, വള നിർദ്ദേശം, വിള വിവരങ്ങൾ എന്നിവ കാണാം.",
+        voice: "സഹായമുള്ള പക്ഷം, ഫലം നിങ്ങളുടെ ഭാഷയിൽ കേൾക്കാൻ വോയ്സ് ബട്ടൺ ഉപയോഗിക്കുക.",
+        speak: "നിങ്ങൾ തിരഞ്ഞെടുത്ത ഭാഷയിൽ സഹായം വായിക്കപ്പെടുന്നു.",
+        howBtn: "എങ്ങനെ ഉപയോഗിക്കാം?",
+        top3Btn: "മികച്ച 3 സഹായം",
+        detailsBtn: "വിശദാംശ സഹായം",
+        voiceBtn: "വോയ്സ് സഹായം",
+        speakBtn: "🔊 സഹായം വായിക്കുക"
+      },
+
+      mr: {
+        title: "शेतकरी सहाय्यक",
+        welcome: "नमस्कार शेतकरी, मी कशी मदत करू?",
+        how: "पूर्ण तपशील पाहण्यासाठी टॉप 3 शिफारसींपैकी एक पीक निवडा.",
+        top3: "टॉप 3 विभाग तुमचे तापमान, आर्द्रता, पाऊस आणि मातीचा प्रकार यावर आधारित सर्वोत्तम पीक दाखवतो.",
+        details: "पीक निवडल्यानंतर बाजारमूल्य, मातीची अनुकूलता, हवामान सूचना, खत शिफारस आणि पीक तपशील पाहू शकता.",
+        voice: "सपोर्ट असल्यास, तुमच्या निवडलेल्या भाषेत निकाल ऐकण्यासाठी व्हॉइस बटण वापरा.",
+        speak: "तुमच्या निवडलेल्या भाषेत मदत वाचली जात आहे.",
+        howBtn: "कसे वापरावे?",
+        top3Btn: "टॉप 3 मदत",
+        detailsBtn: "तपशील मदत",
+        voiceBtn: "व्हॉइस मदत",
+        speakBtn: "🔊 मदत वाचा"
+      },
+
+      gu: {
+        title: "ખેડૂત સહાયક",
+        welcome: "નમસ્તે ખેડૂત, હું કેવી રીતે મદદ કરી શકું?",
+        how: "સંપૂર્ણ વિગતો જોવા માટે ટોપ 3 ભલામણોમાંથી એક પાક પસંદ કરો.",
+        top3: "ટોપ 3 વિભાગ તમારા તાપમાન, આર્દ્રતા, વરસાદ અને માટીના પ્રકારના આધારે શ્રેષ્ઠ પાક બતાવે છે.",
+        details: "પાક પસંદ કર્યા પછી બજાર મૂલ્ય, માટી યોગ્યતા, હવામાન સૂચનો, ખાતર ભલામણ અને પાક વિગતો જોઈ શકો છો.",
+        voice: "સપોર્ટ હોય તો, તમારી પસંદ કરેલી ભાષામાં પરિણામ સાંભળવા વોઇસ બટન વાપરો.",
+        speak: "તમારી પસંદ કરેલી ભાષામાં મદદ વાંચવામાં આવી રહી છે.",
+        howBtn: "કેવી રીતે ઉપયોગ કરવો?",
+        top3Btn: "ટોપ 3 મદદ",
+        detailsBtn: "વિગતો મદદ",
+        voiceBtn: "વોઇસ મદદ",
+        speakBtn: "🔊 મદદ વાંચો"
+      },
+
+      bn: {
+        title: "কৃষক সহায়ক",
+        welcome: "নমস্কার কৃষক, আমি কীভাবে সাহায্য করতে পারি?",
+        how: "সম্পূর্ণ তথ্য দেখতে শীর্ষ ৩ সুপারিশের মধ্যে একটি ফসল নির্বাচন করুন।",
+        top3: "শীর্ষ ৩ বিভাগ আপনার তাপমাত্রা, আর্দ্রতা, বৃষ্টিপাত এবং মাটির ধরন অনুযায়ী সেরা ফসল দেখায়।",
+        details: "ফসল নির্বাচন করার পরে বাজার মূল্য, মাটির উপযুক্ততা, আবহাওয়ার পরামর্শ, সার সুপারিশ এবং ফসলের বিবরণ দেখতে পারবেন।",
+        voice: "সমর্থন থাকলে, আপনার ভাষায় ফলাফল শুনতে ভয়েস বোতাম ব্যবহার করুন।",
+        speak: "আপনার নির্বাচিত ভাষায় সহায়তা পড়া হচ্ছে।",
+        howBtn: "কীভাবে ব্যবহার করবেন?",
+        top3Btn: "শীর্ষ ৩ সাহায্য",
+        detailsBtn: "বিস্তারিত সাহায্য",
+        voiceBtn: "ভয়েস সাহায্য",
+        speakBtn: "🔊 সাহায্য পড়ুন"
+      },
+
+      pa: {
+        title: "ਕਿਸਾਨ ਸਹਾਇਕ",
+        welcome: "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਕਿਸਾਨ ਜੀ, ਮੈਂ ਕਿਵੇਂ ਮਦਦ ਕਰਾਂ?",
+        how: "ਪੂਰੇ ਵੇਰਵੇ ਵੇਖਣ ਲਈ ਟਾਪ 3 ਸਿਫਾਰਸ਼ਾਂ ਵਿਚੋਂ ਇੱਕ ਫਸਲ ਚੁਣੋ।",
+        top3: "ਟਾਪ 3 ਭਾਗ ਤੁਹਾਡੇ ਤਾਪਮਾਨ, ਨਮੀ, ਮੀਂਹ ਅਤੇ ਮਿੱਟੀ ਦੀ ਕਿਸਮ ਦੇ ਆਧਾਰ 'ਤੇ ਸਭ ਤੋਂ ਵਧੀਆ ਫਸਲਾਂ ਦਿਖਾਉਂਦਾ ਹੈ।",
+        details: "ਫਸਲ ਚੁਣਨ ਤੋਂ ਬਾਅਦ ਤੁਸੀਂ ਮਾਰਕੀਟ ਕੀਮਤ, ਮਿੱਟੀ ਦੀ ਉਚਿਤਤਾ, ਮੌਸਮੀ ਸੁਝਾਅ, ਖਾਦ ਸਿਫਾਰਸ਼ ਅਤੇ ਫਸਲ ਵੇਰਵੇ ਦੇਖ ਸਕਦੇ ਹੋ।",
+        voice: "ਜੇ ਸਹਾਇਤਾ ਹੋਵੇ ਤਾਂ ਆਪਣੀ ਚੁਣੀ ਭਾਸ਼ਾ ਵਿੱਚ ਨਤੀਜਾ ਸੁਣਨ ਲਈ ਵੌਇਸ ਬਟਨ ਵਰਤੋ।",
+        speak: "ਤੁਹਾਡੀ ਚੁਣੀ ਹੋਈ ਭਾਸ਼ਾ ਵਿੱਚ ਮਦਦ ਪੜ੍ਹੀ ਜਾ ਰਹੀ ਹੈ।",
+        howBtn: "ਕਿਵੇਂ ਵਰਤਣਾ ਹੈ?",
+        top3Btn: "ਟਾਪ 3 ਮਦਦ",
+        detailsBtn: "ਵੇਰਵਾ ਮਦਦ",
+        voiceBtn: "ਵੌਇਸ ਮਦਦ",
+        speakBtn: "🔊 ਮਦਦ ਪੜ੍ਹੋ"
+      },
+
+      or: {
+        title: "କୃଷକ ସହାୟକ",
+        welcome: "ନମସ୍କାର କୃଷକ, ମୁଁ କିପରି ସହାୟତା କରିପାରିବି?",
+        how: "ପୂର୍ଣ୍ଣ ବିବରଣୀ ଦେଖିବା ପାଇଁ ଶୀର୍ଷ 3 ସୁପାରିଶ ମଧ୍ୟରୁ ଗୋଟିଏ ଫସଲ ବାଛନ୍ତୁ।",
+        top3: "ଶୀର୍ଷ 3 ବିଭାଗ ଆପଣଙ୍କ ତାପମାତ୍ରା, ଆର୍ଦ୍ରତା, ବର୍ଷା ଓ ମାଟି ପ୍ରକାର ଆଧାରରେ ସର୍ବୋତ୍ତମ ଫସଲ ଦେଖାଏ।",
+        details: "ଫସଲ ବାଛିବା ପରେ ବଜାର ମୂଲ୍ୟ, ମାଟିର ଉପଯୁକ୍ତତା, ଆବହାଓା ପରାମର୍ଶ, ସାର ସୁପାରିଶ ଏବଂ ଫସଲ ବିବରଣୀ ଦେଖିପାରିବେ।",
+        voice: "ସପୋର୍ଟ ଥିଲେ, ଆପଣଙ୍କ ଭାଷାରେ ଫଳାଫଳ ଶୁଣିବାକୁ ଭୋଇସ ବଟନ ବ୍ୟବହାର କରନ୍ତୁ।",
+        speak: "ଆପଣ ଚୟନ କରିଥିବା ଭାଷାରେ ସହାୟତା ପଢ଼ାଯାଉଛି।",
+        howBtn: "କିପରି ବ୍ୟବହାର କରିବେ?",
+        top3Btn: "ଶୀର୍ଷ 3 ସହାୟତା",
+        detailsBtn: "ବିବରଣୀ ସହାୟତା",
+        voiceBtn: "ଭୋଇସ ସହାୟତା",
+        speakBtn: "🔊 ସହାୟତା ପଢନ୍ତୁ"
+      },
+
+      ur: {
+        title: "کسان معاون",
+        welcome: "السلام علیکم کسان، میں کیسے مدد کر سکتا ہوں؟",
+        how: "مکمل تفصیلات دیکھنے کے لیے ٹاپ 3 سفارشات میں سے ایک فصل منتخب کریں۔",
+        top3: "ٹاپ 3 حصہ آپ کے درجہ حرارت، نمی، بارش اور مٹی کی قسم کی بنیاد پر بہترین فصلیں دکھاتا ہے۔",
+        details: "فصل منتخب کرنے کے بعد آپ مارکیٹ ویلیو، مٹی کی موزونیت، موسمی مشورے، کھاد کی تجویز اور فصل کی تفصیلات دیکھ سکتے ہیں۔",
+        voice: "اگر سپورٹ ہو تو اپنی منتخب زبان میں نتیجہ سننے کے لیے وائس بٹن استعمال کریں۔",
+        speak: "آپ کی منتخب کردہ زبان میں مدد پڑھی جا رہی ہے۔",
+        howBtn: "کیسے استعمال کریں؟",
+        top3Btn: "ٹاپ 3 مدد",
+        detailsBtn: "تفصیل مدد",
+        voiceBtn: "وائس مدد",
+        speakBtn: "🔊 مدد پڑھیں"
+      }
+    };
+
+    function updateResultAssistantLanguage() {
+      const lang = localStorage.getItem("selectedLanguage") || "en";
+      const t = resultAssistantTexts[lang] || resultAssistantTexts.en;
+
+      assistantTitle.innerText = t.title;
+      assistantMessage.innerText = t.welcome;
+      document.getElementById("assistantHowBtn").innerText = t.howBtn;
+      document.getElementById("assistantTop3Btn").innerText = t.top3Btn;
+      document.getElementById("assistantDetailsBtn").innerText = t.detailsBtn;
+      document.getElementById("assistantVoiceBtn").innerText = t.voiceBtn;
+      document.getElementById("assistantSpeakBtn").innerText = t.speakBtn;
+    }
+
+    assistantToggle.addEventListener("click", () => {
+      assistantBox.classList.toggle("show");
+      updateResultAssistantLanguage();
+    });
+
+    assistantClose.addEventListener("click", () => {
+      assistantBox.classList.remove("show");
+    });
+
+    assistantButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const helpType = button.getAttribute("data-help");
+        const lang = localStorage.getItem("selectedLanguage") || "en";
+        const t = resultAssistantTexts[lang] || resultAssistantTexts.en;
+
+        if (helpType === "speak") {
+          assistantMessage.innerText = t.speak;
+
+          const utterance = new SpeechSynthesisUtterance(
+            `${t.welcome}. ${t.how}. ${t.top3}. ${t.details}. ${t.voice}`
+          );
+          utterance.lang = langVoiceMap[lang] || "en-US";
+          speechSynthesis.cancel();
+          speechSynthesis.speak(utterance);
+        } else {
+          assistantMessage.innerText = t[helpType];
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Crop Recommendation</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body class="prediction-body">
+
+  <header class="main-header">
+    <div class="logo">
+      <img src="logo2.png" class="nav-logo" alt="Logo">
+      <h2 id="logoText">SmartCrop</h2>
+    </div>
+
+    <nav>
+      <a href="index.html" id="homeText">Home</a>
+      <a href="predict.html" id="predictNavText">Prediction</a>
+
+      <select id="languageSelect">
+        <option value="en">English</option>
+        <option value="hi">हिंदी</option>
+        <option value="te">తెలుగు</option>
+        <option value="ta">தமிழ்</option>
+        <option value="kn">ಕನ್ನಡ</option>
+        <option value="ml">മലയാളം</option>
+        <option value="mr">मराठी</option>
+        <option value="gu">ગુજરાતી</option>
+        <option value="bn">বাংলা</option>
+        <option value="pa">ਪੰਜਾਬੀ</option>
+        <option value="or">ଓଡ଼ିଆ</option>
+        <option value="ur">اردو</option>
+      </select>
+    </nav>
+  </header>
+
+  <section class="prediction-section">
+    <div class="prediction-overlay"></div>
+
+    <div class="prediction-wrapper">
+      <div class="prediction-left">
+        <span class="hero-badge" id="predictionBadge">Crop Recommendation</span>
+        <h1 id="predictionTitle">Find the Best Crop for Your Field</h1>
+        <p id="headerSubtitle">
+          Enter the weather details and soil type to get the most suitable crop along with market value.
+        </p>
+      </div>
+
+      <div class="prediction-card">
+       
+        <form id="cropForm">
+          <div class="input-group">
+            <label for="temperature" id="tempLabel">Temperature (°C)</label>
+            <input type="number" step="any" id="temperature" placeholder="Temperature (°C)" required />
+          </div>
+
+          <div class="input-group">
+            <label for="humidity" id="humLabel">Humidity (%)</label>
+            <input type="number" step="any" id="humidity" placeholder="Humidity (%)" required />
+          </div>
+
+          <div class="input-group">
+            <label for="rainfall" id="rainLabel">Rainfall (mm)</label>
+            <input type="number" step="any" id="rainfall" placeholder="Rainfall (mm)" required />
+          </div>
+
+          <div class="input-group">
+            <label for="soilType" id="soilLabel">Select Soil Type</label>
+            <select id="soilType" required></select>
+          </div>
+
+          <button type="submit" id="recommendBtn">Recommend Crop</button>
+        </form>
+      </div>
+    </div>
+  </section>
+ 
+
+  <footer>
+    <p id="footerText">© 2026 Smart Crop Recommendation System. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    const cropForm = document.getElementById("cropForm");
+    const soilSelect = document.getElementById("soilType");
+    const languageSelect = document.getElementById("languageSelect");
+    const recommendBtn = document.getElementById("recommendBtn");
+
+    const soilValueMap = [
+      "Alluvial Soil",
+      "Black Soil",
+      "Red Soil",
+      "Laterite Soil",
+      "Sandy Soil",
+      "Clayey Soil",
+      "Loamy Soil"
+    ];
+
+    const translations = {
+      en: {
+        logo: "SmartCrop",
+        home: "Home",
+        predictNav: "Prediction",
+        predictionBadge: "Crop Recommendation",
+        title: "Find the Best Crop for Your Field",
+        subtitle: "Enter the weather details and soil type to get the most suitable crop along with market value.",
+        button: "Recommend Crop",
+        loading: "Predicting...",
+        error: "Error connecting to server",
+        temp: "Temperature (°C)",
+        hum: "Humidity (%)",
+        rain: "Rainfall (mm)",
+        soil: "Select Soil Type",
+        invalidInput: "Invalid temperature, humidity or rainfall values",
+        soilTypes: ["Alluvial Soil", "Black Soil", "Red Soil", "Laterite Soil", "Sandy Soil", "Clayey Soil", "Loamy Soil"],
+        footer: "© 2026 Smart Crop Recommendation System. All Rights Reserved."
+      },
+      hi: {
+        logo: "स्मार्टक्रॉप",
+        home: "होम",
+        invalidInput: "तापमान, आर्द्रता या वर्षा मान अमान्य हैं",
+        predictNav: "पूर्वानुमान",
+        predictionBadge: "फसल अनुशंसा",
+        title: "अपने खेत के लिए सबसे अच्छी फसल जानें",
+        subtitle: "मौसम विवरण और मिट्टी का प्रकार दर्ज करें और उपयुक्त फसल के साथ बाजार मूल्य प्राप्त करें।",
+        button: "फसल सुझाएँ",
+        loading: "भविष्यवाणी हो रही है...",
+        error: "सर्वर से कनेक्ट करने में त्रुटि",
+        temp: "तापमान (°C)",
+        invalidInput: "Invalid temperature, humidity or rainfall values",
+        hum: "आर्द्रता (%)",
+        rain: "वर्षा (मिमी)",
+        soil: "मिट्टी का प्रकार चुनें",
+        soilTypes: ["अल्लुवियल मिट्टी", "काली मिट्टी", "लाल मिट्टी", "लेटेराइट मिट्टी", "रेतीली मिट्टी", "चिकनी मिट्टी", "दोमट मिट्टी"],
+        footer: "© 2026 स्मार्ट फसल अनुशंसा प्रणाली। सर्वाधिकार सुरक्षित।"
+      },
+      te: {
+        logo: "స్మార్ట్‌క్రాప్",
+        home: "హోమ్",
+        predictNav: "అంచనా",
+        invalidInput: "ఉష్ణోగ్రత, ఆర్ద్రత లేదా వర్షపాతం విలువలు తప్పుగా ఉన్నాయి",
+        predictionBadge: "పంట సిఫార్సు",
+        title: "మీ పొలానికి సరైన పంటను కనుగొనండి",
+        subtitle: "వాతావరణ వివరాలు మరియు మట్టి రకాన్ని నమోదు చేసి, సరైన పంటతో పాటు మార్కెట్ విలువను పొందండి.",
+        button: "పంట సూచించండి",
+        loading: "అంచనా జరుగుతోంది...",
+        error: "సర్వర్‌కు కనెక్ట్ కాలేకపోయింది",
+        temp: "ఉష్ణోగ్రత (°C)",
+        hum: "ఆర్ద్రత (%)",
+        rain: "వర్షపాతం (మిమీ)",
+        soil: "మట్టి రకాన్ని ఎంచుకోండి",
+        soilTypes: ["అల్లువియల్ మట్టి", "నల్ల మట్టి", "ఎర్ర మట్టి", "లేటరైట్ మట్టి", "ఇసుక మట్టి", "చిక్కటి మట్టి", "లోమీ మట్టి"],
+        footer: "© 2026 స్మార్ట్ పంట సిఫార్సు వ్యవస్థ. అన్ని హక్కులు కలవు."
+      },
+      ta: {
+        logo: "ஸ்மார்ட்கிராப்",
+        home: "முகப்பு",
+        predictNav: "கணிப்பு",
+        predictionBadge: "பயிர் பரிந்துரை",
+        title: "உங்கள் நிலத்திற்கு சிறந்த பயிரை கண்டறியுங்கள்",
+        subtitle: "காலநிலை விவரங்களையும் மண் வகையையும் உள்ளிட்டு பொருத்தமான பயிரையும் சந்தை மதிப்பையும் அறியுங்கள்.",
+        button: "பயிர் பரிந்துரைக்கவும்",
+        loading: "கணிப்பு நடைபெறுகிறது...",
+        error: "சர்வருடன் இணைப்பதில் பிழை",
+        temp: "வெப்பநிலை (°C)",
+        hum: "ஈரப்பதம் (%)",
+        rain: "மழைப்பொழிவு (மிமீ)",
+        invalidInput: "தவறான வெப்பநிலை, ஈரப்பதம் அல்லது மழை மதிப்புகள்",
+        soil: "மண் வகையை தேர்ந்தெடுக்கவும்",
+        soilTypes: ["அல்லுவியல் மண்", "கருப்பு மண்", "சிவப்பு மண்", "லேட்டரைட் மண்", "மணல் மண்", "களிமண்", "லோமி மண்"],
+        footer: "© 2026 ஸ்மார்ட் பயிர் பரிந்துரை அமைப்பு. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை."
+      },
+      kn: {
+        invalidInput: "ತಪ್ಪಾದ ತಾಪಮಾನ, ಆರ್ದ್ರತೆ ಅಥವಾ ಮಳೆ ಪ್ರಮಾಣದ ಮೌಲ್ಯಗಳು",
+        logo: "ಸ್ಮಾರ್ಟ್‌ಕ್ರಾಪ್",
+        home: "ಮುಖಪುಟ",
+        predictNav: "ಭವಿಷ್ಯವಾಣಿ",
+        predictionBadge: "ಬೆಳೆ ಶಿಫಾರಸು",
+        title: "ನಿಮ್ಮ ಹೊಲಕ್ಕೆ ಸೂಕ್ತವಾದ ಬೆಳೆಯನ್ನು ಕಂಡುಹಿಡಿಯಿರಿ",
+        subtitle: "ಹವಾಮಾನ ವಿವರಗಳು ಮತ್ತು ಮಣ್ಣಿನ ವಿಧವನ್ನು ನಮೂದಿಸಿ ಸೂಕ್ತ ಬೆಳೆ ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯವನ್ನು ಪಡೆಯಿರಿ.",
+        button: "ಬೆಳೆ ಶಿಫಾರಸು ಮಾಡಿ",
+        loading: "ಭವಿಷ್ಯವಾಣಿ ನಡೆಯುತ್ತಿದೆ...",
+        error: "ಸರ್ವರ್‌ಗೆ ಸಂಪರ್ಕಿಸುವಲ್ಲಿ ದೋಷ",
+        temp: "ತಾಪಮಾನ (°C)",
+        hum: "ಆರ್ದ್ರತೆ (%)",
+        rain: "ಮಳೆಯ ಪ್ರಮಾಣ (ಮಿಮೀ)",
+        soil: "ಮಣ್ಣಿನ ವಿಧವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+        soilTypes: ["ಅಲ್ಲುವಿಯಲ್ ಮಣ್ಣು", "ಕಪ್ಪು ಮಣ್ಣು", "ಕೆಂಪು ಮಣ್ಣು", "ಲೆಟರೈಟ್ ಮಣ್ಣು", "ಮರಳು ಮಣ್ಣು", "ಚಿಕ್ಕಮಣ್ಣು", "ಲೋಮಿ ಮಣ್ಣು"],
+        footer: "© 2026 ಸ್ಮಾರ್ಟ್ ಬೆಳೆ ಶಿಫಾರಸು ವ್ಯವಸ್ಥೆ. ಎಲ್ಲಾ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ."
+      },
+      ml: {
+         invalidInput: "തെറ്റായ താപനില, ഈർപ്പത, മഴ മൂല്യങ്ങൾ",
+        logo: "സ്മാർട്ട്ക്രോപ്പ്",
+        home: "ഹോം",
+        predictNav: "പ്രവചനം",
+        predictionBadge: "വിള ശുപാർശ",
+        title: "നിങ്ങളുടെ വയലിന് അനുയോജ്യമായ വിള കണ്ടെത്തൂ",
+        subtitle: "കാലാവസ്ഥ വിവരങ്ങളും മണ്ണിന്റെ തരവും നൽകി അനുയോജ്യമായ വിളയും വിപണി വിലയും കണ്ടെത്തൂ.",
+        button: "വിള ശുപാർശ ചെയ്യുക",
+        loading: "പ്രവചനം നടക്കുന്നു...",
+        error: "സർവറുമായി ബന്ധിപ്പിക്കാൻ കഴിഞ്ഞില്ല",
+        temp: "താപനില (°C)",
+        hum: "ആർദ്രത (%)",
+        rain: "മഴ (മിമീ)",
+        soil: "മണ്ണിന്റെ തരം തിരഞ്ഞെടുക്കുക",
+        soilTypes: ["അല്ലുവിയൽ മണ്ണ്", "കറുത്ത മണ്ണ്", "ചുവന്ന മണ്ണ്", "ലെറ്ററൈറ്റ് മണ്ണ്", "മണൽ മണ്ണ്", "കട്ട മണ്ണ്", "ലോമി മണ്ണ്"],
+        footer: "© 2026 സ്മാർട്ട് വിള ശുപാർശ സംവിധാനം. എല്ലാ അവകാശങ്ങളും സംരക്ഷിച്ചിരിക്കുന്നു."
+      },
+      mr: {
+        invalidInput: "अवैध तापमान, आर्द्रता किंवा पाऊस मूल्ये",
+        logo: "स्मार्टक्रॉप",
+        home: "मुख्यपृष्ठ",
+        predictNav: "भविष्यवाणी",
+        predictionBadge: "पीक शिफारस",
+        title: "तुमच्या शेतासाठी योग्य पीक शोधा",
+        subtitle: "हवामान तपशील आणि मातीचा प्रकार भरा आणि योग्य पीक तसेच बाजारमूल्य मिळवा.",
+        button: "पीक सुचवा",
+        loading: "भविष्यवाणी सुरू आहे...",
+        error: "सर्व्हरशी जोडण्यात त्रुटी",
+        temp: "तापमान (°C)",
+        hum: "आर्द्रता (%)",
+        rain: "पाऊस (मिमी)",
+        soil: "मातीचा प्रकार निवडा",
+        soilTypes: ["अल्लुवियल माती", "काळी माती", "लाल माती", "लेटेराइट माती", "वाळू माती", "चिकण माती", "लोमी माती"],
+        footer: "© 2026 स्मार्ट पीक शिफारस प्रणाली. सर्व हक्क राखीव."
+      },
+      gu: {
+         invalidInput: "અમાન્ય તાપમાન, આર્દ્રતા અથવા વરસાદ મૂલ્યો",
+        logo: "સ્માર્ટક્રોપ",
+        home: "હોમ",
+        predictNav: "અનુમાન",
+        predictionBadge: "પાક ભલામણ",
+        title: "તમારા ખેતર માટે શ્રેષ્ઠ પાક શોધો",
+        subtitle: "હવામાન વિગતો અને માટીનો પ્રકાર દાખલ કરો અને યોગ્ય પાક સાથે બજાર મૂલ્ય મેળવો.",
+        button: "પાક ભલામણ કરો",
+        loading: "અનુમાન ચાલી રહ્યું છે...",
+        error: "સર્વર સાથે જોડાણમાં ત્રુટી",
+        temp: "તાપમાન (°C)",
+        hum: "આર્દ્રતા (%)",
+        rain: "વરસાદ (મિમી)",
+        soil: "માટીનો પ્રકાર પસંદ કરો",
+        soilTypes: ["અલ્લુવિયલ માટી", "કાળી માટી", "લાલ માટી", "લેટરાઈટ માટી", "રેતીલી માટી", "ચીકણી માટી", "લોમી માટી"],
+        footer: "© 2026 સ્માર્ટ પાક ભલામણ સિસ્ટમ. બધા હક્કો સુરક્ષિત."
+      },
+      bn: {
+        invalidInput: "অবৈধ তাপমাত্রা, আর্দ্রতা বা বৃষ্টিপাত মান",
+        logo: "স্মার্টক্রপ",
+        home: "হোম",
+        predictNav: "পূর্বাভাস",
+        predictionBadge: "ফসল সুপারিশ",
+        title: "আপনার জমির জন্য সেরা ফসল খুঁজুন",
+        subtitle: "আবহাওয়ার তথ্য এবং মাটির ধরন দিন, উপযুক্ত ফসল ও বাজার মূল্য পান।",
+        button: "ফসল সুপারিশ করুন",
+        loading: "পূর্বাভাস চলছে...",
+        error: "সার্ভারের সাথে সংযোগে সমস্যা",
+        temp: "তাপমাত্রা (°C)",
+        hum: "আর্দ্রতা (%)",
+        rain: "বৃষ্টিপাত (মিমি)",
+        soil: "মাটির ধরন নির্বাচন করুন",
+        soilTypes: ["অ্যালুভিয়াল মাটি", "কালো মাটি", "লাল মাটি", "লেটেরাইট মাটি", "বালুকাময় মাটি", "চিকণ মাটি", "লোমি মাটি"],
+        footer: "© 2026 স্মার্ট ফসল সুপারিশ সিস্টেম। সর্বস্বত্ব সংরক্ষিত।"
+      },
+      pa: {
+        invalidInput: "ਗਲਤ ਤਾਪਮਾਨ, ਨਮੀ ਜਾਂ ਮੀਂਹ ਦੇ ਮੁੱਲ",
+        logo: "ਸਮਾਰਟਕ੍ਰਾਪ",
+        home: "ਹੋਮ",
+        predictNav: "ਭਵਿੱਖਬਾਣੀ",
+        predictionBadge: "ਫਸਲ ਸਿਫਾਰਸ਼",
+        title: "ਆਪਣੇ ਖੇਤ ਲਈ ਸਭ ਤੋਂ ਵਧੀਆ ਫਸਲ ਲੱਭੋ",
+        subtitle: "ਮੌਸਮ ਦੀ ਜਾਣਕਾਰੀ ਅਤੇ ਮਿੱਟੀ ਦੀ ਕਿਸਮ ਭਰੋ ਅਤੇ ਠੀਕ ਫਸਲ ਦੇ ਨਾਲ ਮਾਰਕੀਟ ਕੀਮਤ ਪ੍ਰਾਪਤ ਕਰੋ।",
+        button: "ਫਸਲ ਦੀ ਸਿਫਾਰਸ਼ ਕਰੋ",
+        loading: "ਭਵਿੱਖਬਾਣੀ ਹੋ ਰਹੀ ਹੈ...",
+        error: "ਸਰਵਰ ਨਾਲ ਕਨੈਕਟ ਕਰਨ ਵਿੱਚ ਗਲਤੀ",
+        temp: "ਤਾਪਮਾਨ (°C)",
+        hum: "ਨਮੀ (%)",
+        rain: "ਮੀਂਹ (ਮਿਮੀ)",
+        soil: "ਮਿੱਟੀ ਦੀ ਕਿਸਮ ਚੁਣੋ",
+        soilTypes: ["ਅਲੂਵਿਅਲ ਮਿੱਟੀ", "ਕਾਲੀ ਮਿੱਟੀ", "ਲਾਲ ਮਿੱਟੀ", "ਲੇਟੇਰਾਈਟ ਮਿੱਟੀ", "ਰੇਤਲੀ ਮਿੱਟੀ", "ਚਿਕਣੀ ਮਿੱਟੀ", "ਲੋਮੀ ਮਿੱਟੀ"],
+        footer: "© 2026 ਸਮਾਰਟ ਫਸਲ ਸਿਫਾਰਸ਼ ਸਿਸਟਮ। ਸਭ ਹੱਕ ਰਾਖਵੇਂ ਹਨ।"
+      },
+      or: {
+         invalidInput: "ଅବୈଧ ତାପମାତ୍ରା, ଆର୍ଦ୍ରତା କିମ୍ବା ବର୍ଷା ମୂଲ୍ୟ",
+        logo: "ସ୍ମାର୍ଟକ୍ରପ୍",
+        home: "ମୁଖ୍ୟପୃଷ୍ଠା",
+        predictNav: "ପୂର୍ବାନୁମାନ",
+        predictionBadge: "ଫସଲ ସୁପାରିଶ",
+        title: "ଆପଣଙ୍କ ଜମି ପାଇଁ ସର୍ବୋତ୍ତମ ଫସଲ ଖୋଜନ୍ତୁ",
+        subtitle: "ଆବହାଓା ସୂଚନା ଓ ମାଟି ପ୍ରକାର ଭରନ୍ତୁ ଏବଂ ଉପଯୁକ୍ତ ଫସଲ ସହିତ ବଜାର ମୂଲ୍ୟ ଜାଣନ୍ତୁ।",
+        button: "ଫସଲ ସୁପାରିଶ କରନ୍ତୁ",
+        loading: "ପୂର୍ବାନୁମାନ ଚାଲିଛି...",
+        error: "ସର୍ଭର ସଂଯୋଗରେ ତ୍ରୁଟି",
+        temp: "ତାପମାତ୍ରା (°C)",
+        hum: "ଆର୍ଦ୍ରତା (%)",
+        rain: "ବର୍ଷା (ମିମି)",
+        soil: "ମାଟି ପ୍ରକାର ଚୟନ କରନ୍ତୁ",
+        soilTypes: ["ଅଲୁଭିଆଲ୍ ମାଟି", "କଳା ମାଟି", "ଲାଲ୍ ମାଟି", "ଲେଟରାଇଟ୍ ମାଟି", "ବାଲୁକା ମାଟି", "କ୍ଲେ ମାଟି", "ଲୋମି ମାଟି"],
+        footer: "© 2026 ସ୍ମାର୍ଟ ଫସଲ ସୁପାରିଶ ପ୍ରଣାଳୀ। ସମସ୍ତ ଅଧିକାର ସଂରକ୍ଷିତ।"
+      },
+      ur: {
+        invalidInput: "غلط درجہ حرارت، نمی یا بارش کے اعداد و شمار",
+        logo: "اسمارٹ کراپ",
+        home: "ہوم",
+        predictNav: "پریڈکشن",
+        predictionBadge: "فصل کی تجویز",
+        title: "اپنے کھیت کے لیے بہترین فصل تلاش کریں",
+        subtitle: "موسم کی تفصیلات اور مٹی کی قسم درج کریں اور موزوں فصل کے ساتھ مارکیٹ ویلیو حاصل کریں۔",
+        button: "فصل تجویز کریں",
+        loading: "پریڈکشن ہو رہی ہے...",
+        error: "سرور سے کنکشن میں خرابی",
+        temp: "درجہ حرارت (°C)",
+        hum: "نمی (%)",
+        rain: "بارش (ملی میٹر)",
+        soil: "مٹی کی قسم منتخب کریں",
+        soilTypes: ["آلویئل مٹی", "کالی مٹی", "سرخ مٹی", "لیٹرائٹ مٹی", "ریتلی مٹی", "چکنی مٹی", "لومی مٹی"],
+        footer: "© 2026 اسمارٹ کراپ ریکمینڈیشن سسٹم۔ جملہ حقوق محفوظ ہیں۔"
+      }
+    };
+
+    function populateSoilTypes(lang) {
+      const t = translations[lang] || translations.en;
+      soilSelect.innerHTML = "";
+
+      const defaultOption = document.createElement("option");
+      defaultOption.value = "";
+      defaultOption.textContent = t.soil;
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      soilSelect.appendChild(defaultOption);
+
+      t.soilTypes.forEach((soilText, index) => {
+        const option = document.createElement("option");
+        option.value = soilValueMap[index];
+        option.textContent = soilText;
+        soilSelect.appendChild(option);
+      });
+    }
+
+    function applyLanguage(lang) {
+      const t = translations[lang] || translations.en;
+
+      document.getElementById("logoText").innerText = t.logo;
+      document.getElementById("homeText").innerText = t.home;
+      document.getElementById("predictNavText").innerText = t.predictNav;
+      document.getElementById("predictionBadge").innerText = t.predictionBadge;
+      document.getElementById("predictionTitle").innerText = t.title;
+      document.getElementById("headerSubtitle").innerText = t.subtitle;
+      document.getElementById("tempLabel").innerText = t.temp;
+      document.getElementById("humLabel").innerText = t.hum;
+      document.getElementById("rainLabel").innerText = t.rain;
+      document.getElementById("soilLabel").innerText = t.soil;
+      document.getElementById("recommendBtn").innerText = t.button;
+      document.getElementById("temperature").placeholder = t.temp;
+      document.getElementById("humidity").placeholder = t.hum;
+      document.getElementById("rainfall").placeholder = t.rain;
+      document.getElementById("footerText").innerText = t.footer;
+
+      populateSoilTypes(lang);
+    }
+
+    languageSelect.addEventListener("change", function () {
+      const lang = this.value;
+      localStorage.setItem("selectedLanguage", lang);
+      applyLanguage(lang);
+    });
+   
+
+   cropForm.addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const savedLang = localStorage.getItem("selectedLanguage") || "en";
+  const t = translations[savedLang] || translations.en;
+  const originalButtonText = t.button;
+
+  const data = {
+    temperature: parseFloat(document.getElementById("temperature").value),
+    humidity: parseFloat(document.getElementById("humidity").value),
+    rainfall: parseFloat(document.getElementById("rainfall").value),
+    soil: document.getElementById("soilType").value
+  };
+
+  recommendBtn.disabled = true;
+  recommendBtn.innerText = t.loading;
+
+  try {
+    const response = await fetch("http://127.0.0.1:5000/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+ const errorKey = "invalidInput";
+  showErrorBox(errorKey); 
+  recommendBtn.disabled = false;
+  recommendBtn.innerText = originalButtonText;
+  return;
+}
+
+    localStorage.setItem("predictionResult", JSON.stringify({
+      crop: result.crop,
+      market_price: result.market_price,
+      temperature: data.temperature,
+      humidity: data.humidity,
+      rainfall: data.rainfall,
+      soil: data.soil,
+      top3: result.top3,
+      soil_message: result.soil_message,
+      weather_tip: result.weather_tip,
+      fertilizers: result.fertilizers,
+      crop_details: result.crop_details
+    }));
+
+    window.location.href = "result.html";
+
+  } catch (error) {
+    console.error("ACTUAL ERROR:", error);
+    showErrorBox("error");
+    recommendBtn.disabled = false;
+    recommendBtn.innerText = originalButtonText;
+  }
+});
+    window.addEventListener("DOMContentLoaded", function () {
+      const savedLang = localStorage.getItem("selectedLanguage") || "en";
+      languageSelect.value = savedLang;
+      applyLanguage(savedLang);
+    });
+
+
+function showErrorBox(messageKey) {
+  const lang = localStorage.getItem("selectedLanguage") || "en";
+  const t = translations[lang] || translations.en;
+
+  let displayMessage = "";
+  if (messageKey === "error") {
+    displayMessage = t.error;
+  } else if (messageKey === "invalidInput") {
+    displayMessage = t.invalidInput;
+  } else {
+    displayMessage = messageKey;
+  }
+
+  document.getElementById("errorText").innerText = displayMessage;
+  document.getElementById("errorPopup").classList.add("show");
+
+  const form = document.getElementById("cropForm");
+  form.querySelectorAll("input[type='number']").forEach(input => input.value = "");
+  soilSelect.selectedIndex = 0;
+  localStorage.removeItem("predictionResult");
+}
+
+function closeErrorPopup() {
+  document.getElementById("errorPopup").classList.remove("show");
+}
+
+  </script>
+
+<div class="assistant-toggle" id="assistantToggle">🌾</div>
+
+<div class="assistant-box" id="assistantBox">
+  <div class="assistant-header">
+    <h3 id="assistantTitle">Farmer Assistant</h3>
+    <button class="assistant-close" id="assistantClose">×</button>
+  </div>
+
+  <div class="assistant-body">
+    <p id="assistantMessage">Hello Farmer, how can I help you today?</p>
+
+    <div class="assistant-actions">
+      <button class="assistant-btn" data-help="how" id="assistantHowBtn">How to use?</button>
+      <button class="assistant-btn" data-help="input" id="assistantInputBtn">Input help</button>
+      <button class="assistant-btn" data-help="soil" id="assistantSoilBtn">Soil type help</button>
+      <button class="assistant-btn" data-help="result" id="assistantResultBtn">Result help</button>
+      <button class="assistant-btn" data-help="voice" id="assistantSpeakBtn">🔊 Read Help</button>
+    </div>
+  </div>
+</div>
+<script>
+  const assistantToggle = document.getElementById("assistantToggle");
+  const assistantBox = document.getElementById("assistantBox");
+  const assistantClose = document.getElementById("assistantClose");
+  const assistantMessage = document.getElementById("assistantMessage");
+  const assistantTitle = document.getElementById("assistantTitle");
+  const assistantButtons = document.querySelectorAll(".assistant-btn");
+
+const assistantTexts = {
+  en: {
+    title: "Farmer Assistant",
+    welcome: "Hello Farmer, how can I help you today?",
+    how: "Use this system by entering weather details and soil type. Then view the suggested crops and choose one to see complete details.",
+    input: "Enter temperature in degree Celsius, humidity in percentage, rainfall in millimetres, and select the correct soil type.",
+    soil: "Soil type helps identify which crops grow better in your land. Choose the option that best matches your field.",
+    result: "The result page shows crop recommendation, market value, soil suitability, weather tips, fertilizer guidance, and crop details.",
+    voice: "Reading help in your selected language.",
+    howBtn: "How to use?",
+    inputBtn: "Input help",
+    soilBtn: "Soil type help",
+    resultBtn: "Result help",
+    voiceBtn: "🔊 Read Help"
+  },
+
+  hi: {
+    title: "किसान सहायक",
+    welcome: "नमस्ते किसान, मैं आपकी कैसे मदद कर सकता हूँ?",
+    how: "मौसम विवरण और मिट्टी का प्रकार दर्ज करें। फिर सुझाई गई फसलों को देखें और पूरी जानकारी के लिए एक चुनें।",
+    input: "तापमान डिग्री सेल्सियस में, आर्द्रता प्रतिशत में, वर्षा मिलीमीटर में दर्ज करें और सही मिट्टी का प्रकार चुनें।",
+    soil: "मिट्टी का प्रकार यह समझने में मदद करता है कि आपकी भूमि में कौन सी फसल बेहतर उग सकती है।",
+    result: "परिणाम पृष्ठ पर फसल अनुशंसा, बाजार मूल्य, मिट्टी उपयुक्तता, मौसम सुझाव, उर्वरक जानकारी और फसल विवरण दिखते हैं।",
+    voice: "आपकी चुनी हुई भाषा में सहायता पढ़ी जा रही है।",
+    howBtn: "कैसे उपयोग करें?",
+    inputBtn: "इनपुट सहायता",
+    soilBtn: "मिट्टी प्रकार सहायता",
+    resultBtn: "परिणाम सहायता",
+    voiceBtn: "🔊 सहायता पढ़ें"
+  },
+
+  te: {
+    title: "రైతు సహాయకుడు",
+    welcome: "నమస్కారం రైతు గారూ, నేను ఎలా సహాయపడగలను?",
+    how: "వాతావరణ వివరాలు మరియు మట్టి రకాన్ని నమోదు చేయండి. తరువాత సూచించిన పంటలను చూసి పూర్తి వివరాల కోసం ఒకదాన్ని ఎంచుకోండి.",
+    input: "ఉష్ణోగ్రతను సెల్సియస్‌లో, ఆర్ద్రతను శాతంలో, వర్షపాతాన్ని మిల్లీమీటర్లలో నమోదు చేసి సరైన మట్టి రకాన్ని ఎంచుకోండి.",
+    soil: "మీ భూమిలో ఏ పంట బాగా పెరుగుతుందో తెలుసుకోవడానికి మట్టి రకం ఉపయోగపడుతుంది.",
+    result: "ఫలితాల పేజీలో పంట సిఫార్సు, మార్కెట్ విలువ, మట్టి అనుకూలత, వాతావరణ సూచనలు, ఎరువు సమాచారం, పంట వివరాలు ఉంటాయి.",
+    voice: "మీరు ఎంచుకున్న భాషలో సహాయం చదవబడుతోంది.",
+    howBtn: "ఎలా ఉపయోగించాలి?",
+    inputBtn: "ఇన్‌పుట్ సహాయం",
+    soilBtn: "మట్టి రకం సహాయం",
+    resultBtn: "ఫలిత సహాయం",
+    voiceBtn: "🔊 సహాయం చదవండి"
+  },
+
+  ta: {
+    title: "விவசாயி உதவியாளர்",
+    welcome: "வணக்கம் விவசாயி, நான் எப்படி உதவலாம்?",
+    how: "வானிலை விவரங்களையும் மண் வகையையும் உள்ளிடுங்கள். பின்னர் பரிந்துரைக்கப்பட்ட பயிர்களை பார்த்து முழு விவரங்களுக்கு ஒன்றைத் தேர்ந்தெடுக்கவும்.",
+    input: "வெப்பநிலையை செல்சியஸில், ஈரப்பதத்தை சதவீதத்தில், மழைப்பொழிவை மில்லிமீட்டரில் உள்ளிட்டு சரியான மண் வகையைத் தேர்ந்தெடுக்கவும்.",
+    soil: "உங்கள் நிலத்திற்கு ஏற்ற பயிரை அறிய மண் வகை உதவுகிறது.",
+    result: "முடிவு பக்கத்தில் பயிர் பரிந்துரை, சந்தை மதிப்பு, மண் பொருத்தம், வானிலை குறிப்புகள், உர பரிந்துரை மற்றும் பயிர் விவரங்கள் காட்டப்படும்.",
+    voice: "நீங்கள் தேர்ந்தெடுத்த மொழியில் உதவி வாசிக்கப்படுகிறது.",
+    howBtn: "எப்படி பயன்படுத்துவது?",
+    inputBtn: "உள்ளீட்டு உதவி",
+    soilBtn: "மண் வகை உதவி",
+    resultBtn: "முடிவு உதவி",
+    voiceBtn: "🔊 உதவியை வாசிக்கவும்"
+  },
+
+  kn: {
+    title: "ರೈತ ಸಹಾಯಕ",
+    welcome: "ನಮಸ್ಕಾರ ರೈತರೆ, ನಾನು ಹೇಗೆ ಸಹಾಯ ಮಾಡಲಿ?",
+    how: "ಹವಾಮಾನ ವಿವರಗಳು ಮತ್ತು ಮಣ್ಣಿನ ವಿಧವನ್ನು ನಮೂದಿಸಿ. ನಂತರ ಸೂಚಿಸಲಾದ ಬೆಳೆಗಳನ್ನು ನೋಡಿ ಪೂರ್ಣ ವಿವರಗಳಿಗೆ ಒಂದನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
+    input: "ತಾಪಮಾನವನ್ನು ಸೆಲ್ಸಿಯಸ್‌ನಲ್ಲಿ, ಆರ್ದ್ರತೆಯನ್ನು ಶೇಕಡಾವಾರು, ಮಳೆಯ ಪ್ರಮಾಣವನ್ನು ಮಿಲಿಮೀಟರ್‌ನಲ್ಲಿ ನಮೂದಿಸಿ ಮತ್ತು ಸರಿಯಾದ ಮಣ್ಣಿನ ವಿಧವನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
+    soil: "ನಿಮ್ಮ ಭೂಮಿಯಲ್ಲಿ ಯಾವ ಬೆಳೆ ಚೆನ್ನಾಗಿ ಬೆಳೆಯುತ್ತದೆ ಎಂಬುದನ್ನು ತಿಳಿಯಲು ಮಣ್ಣಿನ ವಿಧ ಸಹಾಯ ಮಾಡುತ್ತದೆ.",
+    result: "ಫಲಿತಾಂಶ ಪುಟದಲ್ಲಿ ಬೆಳೆ ಶಿಫಾರಸು, ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯ, ಮಣ್ಣಿನ ಹೊಂದಾಣಿಕೆ, ಹವಾಮಾನ ಸಲಹೆಗಳು, ರಸಗೊಬ್ಬರ ಮಾಹಿತಿ ಮತ್ತು ಬೆಳೆ ವಿವರಗಳು ಕಾಣಿಸುತ್ತವೆ.",
+    voice: "ನೀವು ಆಯ್ಕೆ ಮಾಡಿದ ಭಾಷೆಯಲ್ಲಿ ಸಹಾಯ ಓದಲಾಗುತ್ತಿದೆ.",
+    howBtn: "ಹೇಗೆ ಬಳಸುವುದು?",
+    inputBtn: "ಇನ್‌ಪುಟ್ ಸಹಾಯ",
+    soilBtn: "ಮಣ್ಣಿನ ವಿಧ ಸಹಾಯ",
+    resultBtn: "ಫಲಿತಾಂಶ ಸಹಾಯ",
+    voiceBtn: "🔊 ಸಹಾಯ ಓದಿ"
+  },
+
+  ml: {
+    title: "കർഷക സഹായി",
+    welcome: "നമസ്കാരം കർഷകാ, ഞാൻ എങ്ങനെ സഹായിക്കാം?",
+    how: "കാലാവസ്ഥ വിവരങ്ങളും മണ്ണിന്റെ തരവും നൽകുക. തുടർന്ന് നിർദേശിച്ച വിളകളിൽ നിന്ന് പൂർണ്ണ വിവരങ്ങൾക്ക് ഒന്നിനെ തിരഞ്ഞെടുക്കുക.",
+    input: "താപനില സെൽഷ്യസിൽ, ആർദ്രത ശതമാനത്തിൽ, മഴ മില്ലീമീറ്ററിൽ നൽകുകയും ശരിയായ മണ്ണിന്റെ തരം തിരഞ്ഞെടുക്കുകയും ചെയ്യുക.",
+    soil: "നിങ്ങളുടെ നിലത്തിൽ ഏത് വിള നല്ലതായി വളരുമെന്ന് മനസ്സിലാക്കാൻ മണ്ണിന്റെ തരം സഹായിക്കുന്നു.",
+    result: "ഫല പേജിൽ വിള ശുപാർശ, വിപണി വില, മണ്ണിന്റെ അനുയോജ്യത, കാലാവസ്ഥ നിർദേശങ്ങൾ, വള നിർദേശം, വിള വിവരങ്ങൾ എന്നിവ കാണാം.",
+    voice: "നിങ്ങൾ തിരഞ്ഞെടുത്ത ഭാഷയിൽ സഹായം വായിക്കപ്പെടുന്നു.",
+    howBtn: "എങ്ങനെ ഉപയോഗിക്കാം?",
+    inputBtn: "ഇൻപുട്ട് സഹായം",
+    soilBtn: "മണ്ണ് തരം സഹായം",
+    resultBtn: "ഫല സഹായം",
+    voiceBtn: "🔊 സഹായം വായിക്കുക"
+  },
+
+  mr: {
+    title: "शेतकरी सहाय्यक",
+    welcome: "नमस्कार शेतकरी, मी कशी मदत करू?",
+    how: "हवामानाची माहिती आणि मातीचा प्रकार भरा. नंतर सुचवलेल्या पिकांमधून पूर्ण माहितीसाठी एक निवडा.",
+    input: "तापमान सेल्सियसमध्ये, आर्द्रता टक्केवारीत, पाऊस मिलीमीटरमध्ये भरा आणि योग्य मातीचा प्रकार निवडा.",
+    soil: "तुमच्या जमिनीत कोणते पीक चांगले वाढेल हे समजण्यासाठी मातीचा प्रकार मदत करतो.",
+    result: "निकाल पानावर पीक शिफारस, बाजारमूल्य, मातीची अनुकूलता, हवामान सूचना, खत मार्गदर्शन आणि पीक तपशील दिसतील.",
+    voice: "तुमच्या निवडलेल्या भाषेत मदत वाचली जात आहे.",
+    howBtn: "कसे वापरावे?",
+    inputBtn: "इनपुट मदत",
+    soilBtn: "माती प्रकार मदत",
+    resultBtn: "निकाल मदत",
+    voiceBtn: "🔊 मदत वाचा"
+  },
+
+  gu: {
+    title: "ખેડૂત સહાયક",
+    welcome: "નમસ્તે ખેડૂત, હું કેવી રીતે મદદ કરી શકું?",
+    how: "હવામાનની વિગતો અને માટીનો પ્રકાર દાખલ કરો. પછી સૂચવાયેલા પાકોમાંથી સંપૂર્ણ માહિતી માટે એક પસંદ કરો.",
+    input: "તાપમાન સેલ્સિયસમાં, આર્દ્રતા ટકાવારીમાં, વરસાદ મિલીમીટરમાં દાખલ કરો અને યોગ્ય માટીનો પ્રકાર પસંદ કરો.",
+    soil: "તમારી જમીનમાં કયો પાક સારું ઉગે છે તે ઓળખવામાં માટીનો પ્રકાર મદદ કરે છે.",
+    result: "પરિણામ પેજ પર પાક ભલામણ, બજાર મૂલ્ય, માટી યોગ્યતા, હવામાન સૂચનો, ખાતર માર્ગદર્શન અને પાક વિગતો દેખાશે.",
+    voice: "તમારી પસંદ કરેલી ભાષામાં મદદ વાંચવામાં આવી રહી છે.",
+    howBtn: "કેવી રીતે ઉપયોગ કરવો?",
+    inputBtn: "ઇનપુટ મદદ",
+    soilBtn: "માટી પ્રકાર મદદ",
+    resultBtn: "પરિણામ મદદ",
+    voiceBtn: "🔊 મદદ વાંચો"
+  },
+
+  bn: {
+    title: "কৃষক সহায়ক",
+    welcome: "নমস্কার কৃষক, আমি কীভাবে সাহায্য করতে পারি?",
+    how: "আবহাওয়ার তথ্য এবং মাটির ধরন দিন। তারপর প্রস্তাবিত ফসলগুলির মধ্যে একটি বেছে নিয়ে সম্পূর্ণ তথ্য দেখুন।",
+    input: "তাপমাত্রা সেলসিয়াসে, আর্দ্রতা শতাংশে, বৃষ্টিপাত মিলিমিটারে দিন এবং সঠিক মাটির ধরন নির্বাচন করুন।",
+    soil: "আপনার জমিতে কোন ফসল ভালো জন্মাবে তা বুঝতে মাটির ধরন সাহায্য করে।",
+    result: "ফলাফল পৃষ্ঠায় ফসল সুপারিশ, বাজার মূল্য, মাটির উপযুক্ততা, আবহাওয়ার পরামর্শ, সার নির্দেশনা এবং ফসলের বিবরণ দেখাবে।",
+    voice: "আপনার নির্বাচিত ভাষায় সহায়তা পড়া হচ্ছে।",
+    howBtn: "কীভাবে ব্যবহার করবেন?",
+    inputBtn: "ইনপুট সাহায্য",
+    soilBtn: "মাটির ধরন সাহায্য",
+    resultBtn: "ফলাফল সাহায্য",
+    voiceBtn: "🔊 সাহায্য পড়ুন"
+  },
+
+  pa: {
+    title: "ਕਿਸਾਨ ਸਹਾਇਕ",
+    welcome: "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਕਿਸਾਨ ਜੀ, ਮੈਂ ਕਿਵੇਂ ਮਦਦ ਕਰਾਂ?",
+    how: "ਮੌਸਮ ਦੀ ਜਾਣਕਾਰੀ ਅਤੇ ਮਿੱਟੀ ਦੀ ਕਿਸਮ ਭਰੋ। ਫਿਰ ਸੁਝਾਈਆਂ ਗਈਆਂ ਫਸਲਾਂ ਵਿਚੋਂ ਪੂਰੀ ਜਾਣਕਾਰੀ ਲਈ ਇੱਕ ਚੁਣੋ।",
+    input: "ਤਾਪਮਾਨ ਸੈਲਸੀਅਸ ਵਿੱਚ, ਨਮੀ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ, ਮੀਂਹ ਮਿਲੀਮੀਟਰ ਵਿੱਚ ਭਰੋ ਅਤੇ ਸਹੀ ਮਿੱਟੀ ਦੀ ਕਿਸਮ ਚੁਣੋ।",
+    soil: "ਤੁਹਾਡੀ ਜ਼ਮੀਨ ਵਿੱਚ ਕਿਹੜੀ ਫਸਲ ਚੰਗੀ ਵਧੇਗੀ, ਇਹ ਸਮਝਣ ਲਈ ਮਿੱਟੀ ਦੀ ਕਿਸਮ ਮਦਦ ਕਰਦੀ ਹੈ।",
+    result: "ਨਤੀਜੇ ਵਾਲੇ ਪੰਨੇ 'ਤੇ ਫਸਲ ਸਿਫਾਰਸ਼, ਮਾਰਕੀਟ ਕੀਮਤ, ਮਿੱਟੀ ਦੀ ਉਚਿਤਤਾ, ਮੌਸਮੀ ਸੁਝਾਅ, ਖਾਦ ਜਾਣਕਾਰੀ ਅਤੇ ਫਸਲ ਵੇਰਵੇ ਦਿਖਾਏ ਜਾਣਗੇ।",
+    voice: "ਤੁਹਾਡੀ ਚੁਣੀ ਹੋਈ ਭਾਸ਼ਾ ਵਿੱਚ ਮਦਦ ਪੜ੍ਹੀ ਜਾ ਰਹੀ ਹੈ।",
+    howBtn: "ਕਿਵੇਂ ਵਰਤਣਾ ਹੈ?",
+    inputBtn: "ਇਨਪੁਟ ਮਦਦ",
+    soilBtn: "ਮਿੱਟੀ ਕਿਸਮ ਮਦਦ",
+    resultBtn: "ਨਤੀਜਾ ਮਦਦ",
+    voiceBtn: "🔊 ਮਦਦ ਪੜ੍ਹੋ"
+  },
+
+  or: {
+    title: "କୃଷକ ସହାୟକ",
+    welcome: "ନମସ୍କାର କୃଷକ, ମୁଁ କିପରି ସହାୟତା କରିପାରିବି?",
+    how: "ଆବହାଓା ସୂଚନା ଓ ମାଟି ପ୍ରକାର ଦିଅନ୍ତୁ। ପରେ ପ୍ରସ୍ତାବିତ ଫସଲମାନଙ୍କ ମଧ୍ୟରୁ ଗୋଟିଏ ବାଛି ପୂର୍ଣ୍ଣ ବିବରଣୀ ଦେଖନ୍ତୁ।",
+    input: "ତାପମାତ୍ରା ସେଲ୍ସିୟସ୍‌ରେ, ଆର୍ଦ୍ରତା ପ୍ରତିଶତରେ, ବର୍ଷା ମିଲିମିଟର୍‌ରେ ଦିଅନ୍ତୁ ଏବଂ ଠିକ୍ ମାଟି ପ୍ରକାର ବାଛନ୍ତୁ।",
+    soil: "ଆପଣଙ୍କ ଜମିରେ କେଉଁ ଫସଲ ଭଲ ବଢ଼ିବ ତାହା ବୁଝିବାକୁ ମାଟି ପ୍ରକାର ସହାୟକ ହୁଏ।",
+    result: "ଫଳାଫଳ ପୃଷ୍ଠାରେ ଫସଲ ସୁପାରିଶ, ବଜାର ମୂଲ୍ୟ, ମାଟିର ଉପଯୁକ୍ତତା, ଆବହାଓା ପରାମର୍ଶ, ସାର ନିର୍ଦ୍ଦେଶନା ଓ ଫସଲ ବିବରଣୀ ଦେଖାଯିବ।",
+    voice: "ଆପଣ ଚୟନ କରିଥିବା ଭାଷାରେ ସହାୟତା ପଢ଼ାଯାଉଛି।",
+    howBtn: "କିପରି ବ୍ୟବହାର କରିବେ?",
+    inputBtn: "ଇନପୁଟ ସହାୟତା",
+    soilBtn: "ମାଟି ପ୍ରକାର ସହାୟତା",
+    resultBtn: "ଫଳାଫଳ ସହାୟତା",
+    voiceBtn: "🔊 ସହାୟତା ପଢନ୍ତୁ"
+  },
+
+  ur: {
+    title: "کسان معاون",
+    welcome: "السلام علیکم کسان، میں کیسے مدد کر سکتا ہوں؟",
+    how: "موسم کی تفصیلات اور مٹی کی قسم درج کریں۔ پھر تجویز کردہ فصلوں میں سے ایک منتخب کر کے مکمل معلومات دیکھیں۔",
+    input: "درجہ حرارت سیلسیس میں، نمی فیصد میں، بارش ملی میٹر میں درج کریں اور صحیح مٹی کی قسم منتخب کریں۔",
+    soil: "آپ کی زمین میں کون سی فصل بہتر اگے گی، یہ سمجھنے میں مٹی کی قسم مدد کرتی ہے۔",
+    result: "نتیجہ صفحے پر فصل کی تجویز، مارکیٹ ویلیو، مٹی کی موزونیت، موسمی مشورے، کھاد کی رہنمائی اور فصل کی تفصیلات دکھائی جائیں گی۔",
+    voice: "آپ کی منتخب کردہ زبان میں مدد پڑھی جا رہی ہے۔",
+    howBtn: "کیسے استعمال کریں؟",
+    inputBtn: "ان پٹ مدد",
+    soilBtn: "مٹی کی قسم مدد",
+    resultBtn: "نتیجہ مدد",
+    voiceBtn: "🔊 مدد پڑھیں"
+  }
+};
+
+ const assistantVoiceMap = {
+  en: "en-US",
+  hi: "hi-IN",
+  te: "te-IN",
+  ta: "ta-IN",
+  kn: "kn-IN",
+  ml: "ml-IN",
+  mr: "mr-IN",
+  gu: "gu-IN",
+  bn: "bn-IN",
+  pa: "pa-IN",
+  or: "or-IN",
+  ur: "ur-PK"
+};
+  function getAssistantLang() {
+    return localStorage.getItem("selectedLanguage") || "en";
+  }
+
+function updateAssistantLanguage() {
+  const lang = getAssistantLang();
+  const t = assistantTexts[lang] || assistantTexts.en;
+
+  assistantTitle.innerText = t.title;
+  assistantMessage.innerText = t.welcome;
+
+  document.getElementById("assistantHowBtn").innerText = t.howBtn;
+  document.getElementById("assistantInputBtn").innerText = t.inputBtn;
+  document.getElementById("assistantSoilBtn").innerText = t.soilBtn;
+  document.getElementById("assistantResultBtn").innerText = t.resultBtn;
+  document.getElementById("assistantSpeakBtn").innerText = t.voiceBtn;
+}
+
+  function speakAssistantText(text) {
+    if (!window.speechSynthesis) return;
+    const lang = getAssistantLang();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = assistantVoiceMap[lang] || "en-US";
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utterance);
+  }
+
+  assistantToggle.addEventListener("click", () => {
+    assistantBox.classList.toggle("show");
+    updateAssistantLanguage();
+  });
+
+  assistantClose.addEventListener("click", () => {
+    assistantBox.classList.remove("show");
+  });
+
+  assistantButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const helpType = btn.getAttribute("data-help");
+      const lang = getAssistantLang();
+      const t = assistantTexts[lang] || assistantTexts.en;
+
+      if (helpType === "voice") {
+        speakAssistantText(assistantMessage.innerText);
+      } else {
+        assistantMessage.innerText = t[helpType] || t.welcome;
+      }
+    });
+  });
+
+  window.addEventListener("DOMContentLoaded", updateAssistantLanguage);
+</script>
+
+<div id="errorPopup" class="error-popup">
+  <div class="error-content">
+    <span class="error-icon">⚠️</span>
+    <p id="errorText"></p>
+    <button onclick="closeErrorPopup()">OK</button>
+  </div>
+</div>
+
+</body>
+</html>
